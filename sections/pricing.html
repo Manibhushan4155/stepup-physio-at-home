@@ -1,77 +1,104 @@
 <section id="pricing" class="py-20 bg-slate-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center max-w-3xl mx-auto mb-16">
-      <span class="text-xs font-extrabold uppercase tracking-wider text-teal-600 bg-teal-100/70 px-3 py-1 rounded-full">Pricing Plan</span>
+      <span class="text-xs font-extrabold uppercase tracking-wider text-teal-600 bg-teal-100/70 px-3 py-1 rounded-full">Pricing Plans</span>
       <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">Transparent Home Visit Care</h2>
       <p class="text-slate-600 mt-2 text-sm sm:text-base">Simple • Per Session • Home Visit Included across Noida & Delhi</p>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-      <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-200 flex flex-col justify-between">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <!-- Plan 1: ₹649 -->
+      <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between">
         <div>
-          <span class="text-xs font-bold uppercase text-teal-600 tracking-wider">Standard Plan</span>
-          <h3 class="text-xl font-extrabold text-slate-950 mt-1">Affordable Home Physiotherapy</h3>
-          <div class="my-6 pb-6 border-b border-slate-100">
-            <span class="text-4xl font-black text-slate-900">₹799</span>
-            <span class="text-slate-500 text-sm font-medium"> / Per Session</span>
+          <span class="text-xs font-bold uppercase text-teal-600 tracking-wider">Basic Plan</span>
+          <h3 class="text-lg font-extrabold text-slate-950 mt-1">Essential Mobility Care</h3>
+          <div class="my-5 pb-5 border-b border-slate-100">
+            <span class="text-3xl font-black text-slate-900">₹649</span>
+            <span class="text-slate-500 text-xs font-medium"> / Per Session</span>
           </div>
-          <ul class="space-y-3 text-xs sm:text-sm text-slate-600">
-            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-teal-600"></i> 40–45 minute home session</li>
-            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-teal-600"></i> Pain relief & mobility exercises</li>
-            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-teal-600"></i> Manual therapy & electrotherapy</li>
-            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-teal-600"></i> Home exercise recommendations</li>
-            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-teal-600"></i> Best for general pain & stiffness</li>
+          <ul class="space-y-2.5 text-xs text-slate-600">
+            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i> 30–35 minute home session</li>
+            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i> Initial pain & posture check</li>
+            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i> Guided mobility exercises</li>
+            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i> Daily home exercise chart</li>
+            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i> Best for mild stiffness & follow-ups</li>
           </ul>
         </div>
-        <a href="#appointment" onclick="selectPlan('Standard Plan (₹799/Session)')" class="mt-8 block w-full py-3.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm text-center rounded-xl transition">
+        <a href="#appointment" onclick="selectPlan('Basic Plan (₹649/Session)')" class="mt-7 block w-full py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs text-center rounded-xl transition">
+          Book Basic Session
+        </a>
+      </div>
+
+      <!-- Plan 2: ₹799 -->
+      <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between">
+        <div>
+          <span class="text-xs font-bold uppercase text-teal-600 tracking-wider">Standard Plan</span>
+          <h3 class="text-lg font-extrabold text-slate-950 mt-1">Pain Relief & Ortho Care</h3>
+          <div class="my-5 pb-5 border-b border-slate-100">
+            <span class="text-3xl font-black text-slate-900">₹799</span>
+            <span class="text-slate-500 text-xs font-medium"> / Per Session</span>
+          </div>
+          <ul class="space-y-2.5 text-xs text-slate-600">
+            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i> 40–45 minute home session</li>
+            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i> Neck, back, knee & shoulder pain</li>
+            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i> Manual therapy & electrotherapy</li>
+            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i> Ergonomic posture correction</li>
+            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i> Home exercise recommendations</li>
+          </ul>
+        </div>
+        <a href="#appointment" onclick="selectPlan('Standard Plan (₹799/Session)')" class="mt-7 block w-full py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs text-center rounded-xl transition">
           Book Standard Session
         </a>
       </div>
 
-      <div class="bg-slate-900 text-white rounded-3xl p-8 shadow-2xl border-2 border-teal-500 flex flex-col justify-between relative">
-        <div class="absolute -top-3.5 right-6 bg-teal-500 text-slate-950 text-[11px] font-black uppercase px-3 py-1 rounded-full">
-          Most Recommended
+      <!-- Plan 3: ₹999 (Most Recommended) -->
+      <div class="bg-slate-900 text-white rounded-3xl p-6 shadow-2xl border-2 border-teal-500 flex flex-col justify-between relative">
+        <div class="absolute -top-3 right-4 bg-teal-500 text-slate-950 text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full">
+          Recommended
         </div>
         <div>
           <span class="text-xs font-bold uppercase text-teal-400 tracking-wider">Advanced Plan</span>
-          <h3 class="text-xl font-extrabold text-white mt-1">Focused Neuro & Post-Op Rehab</h3>
-          <div class="my-6 pb-6 border-b border-slate-800">
-            <span class="text-4xl font-black text-white">₹999</span>
-            <span class="text-slate-400 text-sm font-medium"> / Per Session</span>
+          <h3 class="text-lg font-extrabold text-white mt-1">Neuro & Post-Op Rehab</h3>
+          <div class="my-5 pb-5 border-b border-slate-800">
+            <span class="text-3xl font-black text-white">₹999</span>
+            <span class="text-slate-400 text-xs font-medium"> / Per Session</span>
           </div>
-          <ul class="space-y-3 text-xs sm:text-sm text-slate-300">
-            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-teal-400"></i> Personalized rehab program</li>
-            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-teal-400"></i> Neuro (Stroke/Parkinsonism) & TKR/THR</li>
-            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-teal-400"></i> Balance & gait training</li>
-            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-teal-400"></i> Weekly progress tracking & adjustments</li>
-            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-teal-400"></i> Family & caregiver guidance included</li>
+          <ul class="space-y-2.5 text-xs text-slate-300">
+            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-400 mt-0.5"></i> 45–50 minute specialized session</li>
+            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-400 mt-0.5"></i> Neuro (Stroke/Parkinsonism) & TKR/THR</li>
+            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-400 mt-0.5"></i> Balance, strength & gait training</li>
+            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-400 mt-0.5"></i> Weekly progress tracking</li>
+            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-400 mt-0.5"></i> Family & caregiver guidance</li>
           </ul>
         </div>
-        <a href="#appointment" onclick="selectPlan('Advanced Plan (₹999/Session)')" class="mt-8 block w-full py-3.5 bg-teal-500 hover:bg-teal-400 text-slate-950 font-extrabold text-sm text-center rounded-xl transition">
+        <a href="#appointment" onclick="selectPlan('Advanced Plan (₹999/Session)')" class="mt-7 block w-full py-3 bg-teal-500 hover:bg-teal-400 text-slate-950 font-extrabold text-xs text-center rounded-xl transition">
           Book Advanced Session
         </a>
       </div>
 
-      <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-200 flex flex-col justify-between">
+      <!-- Plan 4: ₹1,349 -->
+      <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between">
         <div>
           <span class="text-xs font-bold uppercase text-teal-600 tracking-wider">Premium Plan</span>
-          <h3 class="text-xl font-extrabold text-slate-950 mt-1">Extended Session & Cupping</h3>
-          <div class="my-6 pb-6 border-b border-slate-100">
-            <span class="text-4xl font-black text-slate-900">₹1,499</span>
-            <span class="text-slate-500 text-sm font-medium"> / Per Session</span>
+          <h3 class="text-lg font-extrabold text-slate-950 mt-1">Extended Care & Cupping</h3>
+          <div class="my-5 pb-5 border-b border-slate-100">
+            <span class="text-3xl font-black text-slate-900">₹1,349</span>
+            <span class="text-slate-500 text-xs font-medium"> / Per Session</span>
           </div>
-          <ul class="space-y-3 text-xs sm:text-sm text-slate-600">
-            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-teal-600"></i> 50–60 minute extended home session</li>
-            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-teal-600"></i> Certified Cupping & advanced manual therapy</li>
-            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-teal-600"></i> Customized long-term recovery plan</li>
-            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-teal-600"></i> Ergonomic & posture assessment</li>
-            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-teal-600"></i> Priority slot scheduling</li>
+          <ul class="space-y-2.5 text-xs text-slate-600">
+            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i> 60 minute extended home session</li>
+            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i> Certified Cupping & deep release</li>
+            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i> Complete multi-joint recovery plan</li>
+            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i> Geriatric & fall-prevention training</li>
+            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i> Priority slot scheduling</li>
           </ul>
         </div>
-        <a href="#appointment" onclick="selectPlan('Premium Plan (₹1499/Session)')" class="mt-8 block w-full py-3.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm text-center rounded-xl transition">
+        <a href="#appointment" onclick="selectPlan('Premium Plan (₹1349/Session)')" class="mt-7 block w-full py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs text-center rounded-xl transition">
           Book Premium Session
         </a>
       </div>
+
     </div>
   </div>
 </section>
