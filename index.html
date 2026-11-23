@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Step Up Physio At Home | Dr. Shashi Bhushan Kumar (PT)</title>
-  <meta name="description" content="Step Up Physio At Home - Move Better Live Stronger. Home visit physiotherapy in Noida & Delhi by Dr. Shashi Bhushan Kumar (PT), B.P.T, M.P.T (Neuro).">
+  <meta name="description" content="Step Up Physio At Home - Move Better Live Stronger. Personalized home-visit physiotherapy in Noida & Delhi by Dr. Shashi Bhushan Kumar (PT), B.P.T, M.P.T (Neuro).">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -26,7 +26,7 @@
   <div class="bg-emerald-900 text-white text-xs sm:text-sm py-2.5 px-4 border-b border-emerald-800">
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
       <div class="flex items-center gap-4 flex-wrap justify-center text-slate-200">
-        <span><i class="fa-solid fa-location-dot text-emerald-400 mr-1.5"></i> Noida, Delhi</span>
+        <span><i class="fa-solid fa-location-dot text-emerald-400 mr-1.5"></i> Noida & Delhi</span>
         <span class="hidden md:inline">|</span>
         <span><i class="fa-solid fa-clock text-emerald-400 mr-1.5"></i> Mon - Sun: 09:00 AM - 08:00 PM</span>
         <span class="hidden md:inline">|</span>
@@ -56,18 +56,19 @@
         </a>
 
         <!-- Desktop Menu -->
-        <div class="hidden lg:flex items-center gap-8 font-medium text-slate-600 text-sm">
+        <div class="hidden lg:flex items-center gap-7 font-medium text-slate-600 text-sm">
           <a href="#home" class="hover:text-emerald-600 transition">Home</a>
           <a href="#visiting-card" class="hover:text-emerald-600 transition">Digital Card</a>
           <a href="#services" class="hover:text-emerald-600 transition">Our Services</a>
+          <a href="#process" class="hover:text-emerald-600 transition">Our Process</a>
           <a href="#testimonials" class="hover:text-emerald-600 transition">Reviews</a>
-          <a href="#contact" class="hover:text-emerald-600 transition">Contact</a>
+          <a href="#faq" class="hover:text-emerald-600 transition">FAQ</a>
         </div>
 
         <!-- CTA Button -->
         <div class="hidden sm:flex items-center">
           <a href="#appointment" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm px-5 py-2.5 rounded-xl shadow-md shadow-emerald-600/20 transition-all">
-            Book Home Visit
+            Book an Appointment
           </a>
         </div>
 
@@ -83,9 +84,10 @@
       <a href="#home" class="block py-1 hover:text-emerald-600" onclick="toggleMenu()">Home</a>
       <a href="#visiting-card" class="block py-1 hover:text-emerald-600" onclick="toggleMenu()">Digital Card</a>
       <a href="#services" class="block py-1 hover:text-emerald-600" onclick="toggleMenu()">Our Services</a>
+      <a href="#process" class="block py-1 hover:text-emerald-600" onclick="toggleMenu()">Our Process</a>
       <a href="#testimonials" class="block py-1 hover:text-emerald-600" onclick="toggleMenu()">Reviews</a>
-      <a href="#contact" class="block py-1 hover:text-emerald-600" onclick="toggleMenu()">Contact</a>
-      <a href="#appointment" class="block text-center bg-emerald-600 text-white py-2 rounded-lg font-semibold mt-2" onclick="toggleMenu()">Book Home Visit</a>
+      <a href="#faq" class="block py-1 hover:text-emerald-600" onclick="toggleMenu()">FAQ</a>
+      <a href="#appointment" class="block text-center bg-emerald-600 text-white py-2 rounded-lg font-semibold mt-2" onclick="toggleMenu()">Book an Appointment</a>
     </div>
   </nav>
 
@@ -97,7 +99,7 @@
         <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
           <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider">
             <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
-            Personalized Treatment • Better Mobility
+            Better Movement • Care That Moves You
           </div>
 
           <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-[1.15]">
@@ -105,30 +107,31 @@
           </h1>
 
           <p class="text-slate-600 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-            Expert home-visit physiotherapy across <strong>Noida & Delhi</strong> by <strong>Dr. Shashi Bhushan Kumar (PT)</strong> — B.P.T, M.P.T (Neuro). Dedicated orthopaedic, neurological, post-operative, and geriatric rehabilitation at your doorstep.
+            Personalized physiotherapy designed to help you recover, regain strength, and move with greater confidence at home across <strong>Noida & Delhi</strong> by <strong>Dr. Shashi Bhushan Kumar (PT)</strong> — B.P.T, M.P.T (Neuro).
           </p>
 
-          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
-            <a href="#appointment" class="bg-emerald-600 hover:bg-emerald-700 text-white text-base font-bold px-8 py-3.5 rounded-xl shadow-lg shadow-emerald-600/30 transition-all text-center">
-              Book Home Visit
+          <!-- Noida & Delhi Connect CTAs -->
+          <div class="flex flex-col sm:flex-row gap-3.5 justify-center lg:justify-start pt-2">
+            <a href="#appointment" onclick="setCity('Noida')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-sm sm:text-base font-bold px-7 py-3.5 rounded-xl shadow-lg shadow-emerald-600/30 transition-all text-center flex items-center justify-center gap-2">
+              <i class="fa-solid fa-location-dot"></i> Connect in Noida
             </a>
-            <a href="tel:+919508481837" class="bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 text-base font-semibold px-7 py-3.5 rounded-xl transition-all shadow-sm text-center flex items-center justify-center gap-2">
-              <i class="fa-solid fa-phone text-emerald-600"></i> Call +91 95084 81837
+            <a href="#appointment" onclick="setCity('Delhi')" class="bg-slate-900 hover:bg-slate-800 text-white text-sm sm:text-base font-bold px-7 py-3.5 rounded-xl transition-all shadow-sm text-center flex items-center justify-center gap-2">
+              <i class="fa-solid fa-location-dot text-emerald-400"></i> Connect in Delhi
             </a>
           </div>
 
           <div class="pt-6 border-t border-slate-200 grid grid-cols-3 gap-4 max-w-lg mx-auto lg:mx-0 text-left">
             <div>
-              <p class="text-xl sm:text-2xl font-extrabold text-slate-900">M.P.T</p>
-              <p class="text-xs text-slate-500 font-medium">Neuro Specialist</p>
-            </div>
-            <div>
-              <p class="text-xl sm:text-2xl font-extrabold text-slate-900">Expert Care</p>
+              <p class="text-lg sm:text-xl font-extrabold text-slate-900">1-on-1 Care</p>
               <p class="text-xs text-slate-500 font-medium">Personalized Plans</p>
             </div>
             <div>
-              <p class="text-xl sm:text-2xl font-extrabold text-slate-900">Home Visit</p>
-              <p class="text-xs text-slate-500 font-medium">Noida & Delhi</p>
+              <p class="text-lg sm:text-xl font-extrabold text-slate-900">Home Visits</p>
+              <p class="text-xs text-slate-500 font-medium">Comfortable Recovery</p>
+            </div>
+            <div>
+              <p class="text-lg sm:text-xl font-extrabold text-slate-900">M.P.T Neuro</p>
+              <p class="text-xs text-slate-500 font-medium">Evidence-Based Care</p>
             </div>
           </div>
         </div>
@@ -149,20 +152,20 @@
             <div class="space-y-4 py-6 text-xs text-slate-600">
               <div class="flex items-start gap-3">
                 <i class="fa-solid fa-circle-check text-emerald-600 mt-0.5"></i>
-                <p><strong>Orthopaedic & Post-Op Care:</strong> Neck, back, knee, shoulder pain, frozen shoulder, TKR & THR rehab.</p>
+                <p><strong>Physiotherapy That Comes to You:</strong> Professional rehabilitation delivered safely in a familiar home environment without travel stress.</p>
               </div>
               <div class="flex items-start gap-3">
                 <i class="fa-solid fa-circle-check text-emerald-600 mt-0.5"></i>
-                <p><strong>Neurological Rehabilitation:</strong> Stroke, Parkinsonism, paralysis, and nerve recovery at home.</p>
+                <p><strong>Personalized Treatment:</strong> Every session begins with understanding your condition, lifestyle, and goals for faster recovery.</p>
               </div>
               <div class="flex items-start gap-3">
                 <i class="fa-solid fa-circle-check text-emerald-600 mt-0.5"></i>
-                <p><strong>Geriatric & Ergonomic Care:</strong> Safe senior citizen mobility training and posture ergonomics.</p>
+                <p><strong>Clear Communication & Care:</strong> We explain your condition clearly and guide your family & caregivers throughout recovery.</p>
               </div>
             </div>
 
             <a href="#appointment" class="block w-full py-3 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-center text-sm rounded-xl transition">
-              Schedule Doorstep Consultation
+              Book a Home Visit
             </a>
           </div>
         </div>
@@ -185,7 +188,6 @@
         
         <!-- CARD FRONT -->
         <div class="relative overflow-hidden rounded-2xl shadow-xl border border-slate-200 bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white p-7 sm:p-8 flex flex-col justify-between min-h-[250px]">
-          <!-- Decorative Gold/Blue Accent -->
           <div class="absolute -right-12 -top-12 w-44 h-44 rounded-full bg-amber-400/15 blur-2xl"></div>
           <div class="absolute -left-10 -bottom-10 w-40 h-40 rounded-full bg-sky-500/15 blur-2xl"></div>
 
@@ -257,13 +259,13 @@
     </div>
   </section>
 
-  <!-- ALL SERVICES GRID (FROM VISITING CARD) -->
+  <!-- OUR SPECIALITIES & SERVICES GRID -->
   <section id="services" class="py-20 bg-slate-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-16">
-        <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 bg-emerald-100 px-3 py-1 rounded-full">Our Services</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">Complete Home Physiotherapy Care</h2>
-        <p class="text-slate-600 mt-2 text-sm sm:text-base">Personalized treatment for pain relief, post-surgery recovery, and better mobility.</p>
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 bg-emerald-100 px-3 py-1 rounded-full">Our Specialities</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">Rehabilitation Designed Around You</h2>
+        <p class="text-slate-600 mt-2 text-sm sm:text-base">From neurological recovery to post-surgical rehabilitation, we provide personalized home care to help you move better and regain independence.</p>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -299,7 +301,7 @@
               <i class="fa-solid fa-hands"></i>
             </div>
             <h3 class="text-base font-bold text-slate-900 mt-4">Shoulder Pain & Frozen Shoulder</h3>
-            <p class="text-slate-500 text-xs mt-2 leading-relaxed">Gentle range-of-motion restoration and manual release for adhesive capsulitis (frozen shoulder) and rotator cuff pain.</p>
+            <p class="text-slate-500 text-xs mt-2 leading-relaxed">Gentle range-of-motion restoration and manual release for frozen shoulder and rotator cuff stiffness.</p>
           </div>
           <a href="#appointment" class="text-emerald-600 font-bold text-xs inline-flex items-center gap-1.5 mt-4">Book Home Visit <i class="fa-solid fa-arrow-right text-[10px]"></i></a>
         </div>
@@ -311,7 +313,7 @@
               <i class="fa-solid fa-crutch"></i>
             </div>
             <h3 class="text-base font-bold text-slate-900 mt-4">Postoperative Rehab (TKR & THR)</h3>
-            <p class="text-slate-500 text-xs mt-2 leading-relaxed">Structured post-surgery recovery after Total Knee Replacement (TKR), Total Hip Replacement (THR), and fracture surgeries.</p>
+            <p class="text-slate-500 text-xs mt-2 leading-relaxed">Structured post-surgery recovery after Total Knee Replacement (TKR), Total Hip Replacement (THR), and fractures.</p>
           </div>
           <a href="#appointment" class="text-emerald-600 font-bold text-xs inline-flex items-center gap-1.5 mt-4">Book Home Visit <i class="fa-solid fa-arrow-right text-[10px]"></i></a>
         </div>
@@ -323,7 +325,7 @@
               <i class="fa-solid fa-kit-medical"></i>
             </div>
             <h3 class="text-base font-bold text-slate-900 mt-4">Orthopaedic Rehabilitation</h3>
-            <p class="text-slate-500 text-xs mt-2 leading-relaxed">Comprehensive musculoskeletal recovery for joint injuries, sprains, muscle weakness, and chronic joint conditions.</p>
+            <p class="text-slate-500 text-xs mt-2 leading-relaxed">Comprehensive musculoskeletal recovery for joint injuries, sprains, arthritis, and muscle weakness.</p>
           </div>
           <a href="#appointment" class="text-emerald-600 font-bold text-xs inline-flex items-center gap-1.5 mt-4">Book Home Visit <i class="fa-solid fa-arrow-right text-[10px]"></i></a>
         </div>
@@ -335,7 +337,7 @@
               <i class="fa-solid fa-brain"></i>
             </div>
             <h3 class="text-base font-bold text-slate-900 mt-4">Neurological Rehab (Stroke & Parkinsonism)</h3>
-            <p class="text-slate-500 text-xs mt-2 leading-relaxed">Specialized M.P.T (Neuro) care for Stroke paralysis, Parkinsonism, balance coordination, and gait re-education.</p>
+            <p class="text-slate-500 text-xs mt-2 leading-relaxed">Specialized M.P.T (Neuro) care for Stroke paralysis, Parkinsonism, balance issues, and gait training.</p>
           </div>
           <a href="#appointment" class="text-emerald-600 font-bold text-xs inline-flex items-center gap-1.5 mt-4">Book Home Visit <i class="fa-solid fa-arrow-right text-[10px]"></i></a>
         </div>
@@ -359,7 +361,7 @@
               <i class="fa-solid fa-heart-pulse"></i>
             </div>
             <h3 class="text-base font-bold text-slate-900 mt-4">Geriatric Physiotherapy</h3>
-            <p class="text-slate-500 text-xs mt-2 leading-relaxed">Gentle senior-citizen physiotherapy focused on fall prevention, walking confidence, joint flexibility, and better mobility.</p>
+            <p class="text-slate-500 text-xs mt-2 leading-relaxed">Senior-citizen mobility, balance, strength, and fall-prevention programs delivered safely at home.</p>
           </div>
           <a href="#appointment" class="text-emerald-600 font-bold text-xs inline-flex items-center gap-1.5 mt-4">Book Home Visit <i class="fa-solid fa-arrow-right text-[10px]"></i></a>
         </div>
@@ -368,53 +370,153 @@
     </div>
   </section>
 
-  <!-- TESTIMONIALS -->
-  <section id="testimonials" class="py-20 bg-white">
+  <!-- OUR PROCESS (4-STEP JOURNEY FROM REFERENCE) -->
+  <section id="process" class="py-20 bg-white border-y border-slate-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-16">
-        <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 bg-emerald-100 px-3 py-1 rounded-full">Patient Feedback</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">Trusted by Families in Noida & Delhi</h2>
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 bg-emerald-100 px-3 py-1 rounded-full">Our Process</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">Your Journey to Recovery</h2>
+        <p class="text-slate-600 mt-2 text-sm sm:text-base">From your first appointment to ongoing rehabilitation, we make every step of your recovery clear, personalized, and supportive.</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="bg-slate-50 p-7 rounded-2xl border border-slate-100">
+          <span class="text-4xl font-black text-emerald-600/25 block mb-3">01</span>
+          <h3 class="text-lg font-bold text-slate-900">Book Your Appointment</h3>
+          <p class="text-slate-500 text-xs sm:text-sm mt-2 leading-relaxed">Tell us about your condition, location in Noida/Delhi, and preferred home visit time.</p>
+        </div>
+
+        <div class="bg-slate-50 p-7 rounded-2xl border border-slate-100">
+          <span class="text-4xl font-black text-emerald-600/25 block mb-3">02</span>
+          <h3 class="text-lg font-bold text-slate-900">Initial Assessment</h3>
+          <p class="text-slate-500 text-xs sm:text-sm mt-2 leading-relaxed">Dr. Shashi evaluates your condition, movement patterns, and functional needs at home.</p>
+        </div>
+
+        <div class="bg-slate-50 p-7 rounded-2xl border border-slate-100">
+          <span class="text-4xl font-black text-emerald-600/25 block mb-3">03</span>
+          <h3 class="text-lg font-bold text-slate-900">Personalized Treatment</h3>
+          <p class="text-slate-500 text-xs sm:text-sm mt-2 leading-relaxed">We create and begin a customized rehabilitation plan based around your recovery goals.</p>
+        </div>
+
+        <div class="bg-slate-50 p-7 rounded-2xl border border-slate-100">
+          <span class="text-4xl font-black text-emerald-600/25 block mb-3">04</span>
+          <h3 class="text-lg font-bold text-slate-900">Progress & Recovery</h3>
+          <p class="text-slate-500 text-xs sm:text-sm mt-2 leading-relaxed">Your treatment and exercises are adjusted as you improve to restore full mobility.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS (STORIES OF HEALING) -->
+  <section id="testimonials" class="py-20 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 bg-emerald-100 px-3 py-1 rounded-full">Testimonials</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">Stories of Healing and Hope</h2>
+        <p class="text-slate-600 mt-2 text-sm">Real experiences from patients receiving home physiotherapy across Noida & Delhi.</p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-slate-50 p-7 rounded-2xl border border-slate-100">
+        <div class="bg-white p-7 rounded-2xl shadow-sm border border-slate-100">
           <div class="text-amber-400 text-sm mb-3">
             <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
           </div>
-          <p class="text-slate-600 text-sm italic">
-            "Dr. Shashi Bhushan Kumar provided home physiotherapy for my father's post-stroke recovery in Noida. His neuro expertise and patience helped my father regain walking confidence."
+          <p class="text-slate-600 text-sm italic leading-relaxed">
+            "Dr. Shashi Bhushan Kumar provided home physiotherapy for my father's post-stroke recovery in Noida. The personalized sessions helped him move safely and regain walking confidence."
           </p>
-          <div class="mt-6 pt-4 border-t border-slate-200">
+          <div class="mt-6 pt-4 border-t border-slate-100">
             <h4 class="font-bold text-slate-900 text-sm">Rajesh Verma</h4>
             <p class="text-xs text-emerald-600 font-semibold">Neurological Rehab (Stroke) • Noida</p>
           </div>
         </div>
 
-        <div class="bg-slate-50 p-7 rounded-2xl border border-slate-100">
+        <div class="bg-white p-7 rounded-2xl shadow-sm border border-slate-100">
           <div class="text-amber-400 text-sm mb-3">
             <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
           </div>
-          <p class="text-slate-600 text-sm italic">
-            "I had severe frozen shoulder and neck stiffness. His personalized treatment and ergonomic training sessions gave tremendous relief within a few days."
+          <p class="text-slate-600 text-sm italic leading-relaxed">
+            "Managing back pain and frozen shoulder became far less stressful with treatment at home. The exercises were tailored to my needs, and I gradually returned to comfortable daily movement."
           </p>
-          <div class="mt-6 pt-4 border-t border-slate-200">
+          <div class="mt-6 pt-4 border-t border-slate-100">
             <h4 class="font-bold text-slate-900 text-sm">Neha Singh</h4>
-            <p class="text-xs text-emerald-600 font-semibold">Frozen Shoulder & Neck Pain • Delhi</p>
+            <p class="text-xs text-emerald-600 font-semibold">Frozen Shoulder & Back Pain • Delhi</p>
           </div>
         </div>
 
-        <div class="bg-slate-50 p-7 rounded-2xl border border-slate-100">
+        <div class="bg-white p-7 rounded-2xl shadow-sm border border-slate-100">
           <div class="text-amber-400 text-sm mb-3">
             <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
           </div>
-          <p class="text-slate-600 text-sm italic">
-            "Having postoperative physiotherapy at home after TKR knee replacement made recovery smooth and comfortable. Very punctual and caring doctor."
+          <p class="text-slate-600 text-sm italic leading-relaxed">
+            "After TKR surgery, I needed structured rehabilitation. Step Up Physio At Home provided one-to-one attention and steady support that made recovery smooth without travelling."
           </p>
-          <div class="mt-6 pt-4 border-t border-slate-200">
+          <div class="mt-6 pt-4 border-t border-slate-100">
             <h4 class="font-bold text-slate-900 text-sm">Suresh Agarwal</h4>
             <p class="text-xs text-emerald-600 font-semibold">Postoperative Rehab (TKR) • Noida</p>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION (FROM REFERENCE) -->
+  <section id="faq" class="py-20 bg-white border-t border-slate-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14">
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 bg-emerald-100 px-3 py-1 rounded-full">FAQ</span>
+        <h2 class="text-3xl font-extrabold text-slate-900 mt-3">Frequently Asked Questions</h2>
+      </div>
+
+      <div class="space-y-4">
+        <details class="group bg-slate-50 rounded-2xl p-6 border border-slate-100 cursor-pointer" open>
+          <summary class="flex justify-between items-center font-bold text-slate-900 text-sm sm:text-base list-none">
+            <span>1. What is Step Up Physio At Home?</span>
+            <i class="fa-solid fa-chevron-down text-emerald-600 text-xs transition group-open:rotate-180"></i>
+          </summary>
+          <p class="text-slate-600 text-xs sm:text-sm mt-3 leading-relaxed">
+            Step Up Physio At Home is a professional home-visit physiotherapy service led by Dr. Shashi Bhushan Kumar (PT), providing personalized, evidence-based rehabilitation in the comfort of your home across Noida and Delhi.
+          </p>
+        </details>
+
+        <details class="group bg-slate-50 rounded-2xl p-6 border border-slate-100 cursor-pointer">
+          <summary class="flex justify-between items-center font-bold text-slate-900 text-sm sm:text-base list-none">
+            <span>2. What conditions do you treat?</span>
+            <i class="fa-solid fa-chevron-down text-emerald-600 text-xs transition group-open:rotate-180"></i>
+          </summary>
+          <p class="text-slate-600 text-xs sm:text-sm mt-3 leading-relaxed">
+            We treat Neck Pain, Back Pain, Knee Pain, Shoulder Pain, Frozen Shoulder, Postoperative Rehabilitation (TKR, THR), Orthopaedic injuries, Neurological conditions (Stroke, Parkinsonism), Ergonomic posture issues, and Geriatric mobility problems.
+          </p>
+        </details>
+
+        <details class="group bg-slate-50 rounded-2xl p-6 border border-slate-100 cursor-pointer">
+          <summary class="flex justify-between items-center font-bold text-slate-900 text-sm sm:text-base list-none">
+            <span>3. How does a home physiotherapy session work?</span>
+            <i class="fa-solid fa-chevron-down text-emerald-600 text-xs transition group-open:rotate-180"></i>
+          </summary>
+          <p class="text-slate-600 text-xs sm:text-sm mt-3 leading-relaxed">
+            Dr. Shashi visits your home, assesses your condition and movement, understands your recovery goals, and provides a personalized treatment and exercise program while monitoring your progress throughout.
+          </p>
+        </details>
+
+        <details class="group bg-slate-50 rounded-2xl p-6 border border-slate-100 cursor-pointer">
+          <summary class="flex justify-between items-center font-bold text-slate-900 text-sm sm:text-base list-none">
+            <span>4. Is home physiotherapy suitable for elderly patients?</span>
+            <i class="fa-solid fa-chevron-down text-emerald-600 text-xs transition group-open:rotate-180"></i>
+          </summary>
+          <p class="text-slate-600 text-xs sm:text-sm mt-3 leading-relaxed">
+            Yes. Geriatric home physiotherapy is especially helpful for older adults who have difficulty travelling to a clinic, focusing safely on mobility, strength, balance, functional independence, and fall prevention.
+          </p>
+        </details>
+
+        <details class="group bg-slate-50 rounded-2xl p-6 border border-slate-100 cursor-pointer">
+          <summary class="flex justify-between items-center font-bold text-slate-900 text-sm sm:text-base list-none">
+            <span>5. How often will I need physiotherapy sessions?</span>
+            <i class="fa-solid fa-chevron-down text-emerald-600 text-xs transition group-open:rotate-180"></i>
+          </summary>
+          <p class="text-slate-600 text-xs sm:text-sm mt-3 leading-relaxed">
+            The frequency depends on your condition, recovery goals, and rehabilitation needs. After the initial assessment, we recommend a suitable schedule and adjust it as your progress improves.
+          </p>
+        </details>
       </div>
     </div>
   </section>
@@ -424,9 +526,9 @@
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="bg-slate-900 text-white rounded-3xl p-8 sm:p-12 shadow-xl">
         <div class="text-center mb-8">
-          <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-950 px-3 py-1 rounded-full">Doorstep Appointment</span>
-          <h2 class="text-3xl font-extrabold mt-3">Book Your Home Visit</h2>
-          <p class="text-slate-400 text-xs sm:text-sm mt-2">Fill in your details to save your request and connect directly on WhatsApp.</p>
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-950 px-3 py-1 rounded-full">Your Recovery Starts Here</span>
+          <h2 class="text-3xl font-extrabold mt-3">Take the First Step Toward Better Movement</h2>
+          <p class="text-slate-400 text-xs sm:text-sm mt-2">Fill in your details to save your inquiry and connect directly on WhatsApp.</p>
         </div>
 
         <form onsubmit="handleAppointmentSubmit(event)" class="space-y-4">
@@ -463,11 +565,11 @@
 
           <div>
             <label class="block text-xs font-semibold uppercase text-slate-300 mb-1">Area / Sector (Noida or Delhi)</label>
-            <input type="text" id="patientLocation" required placeholder="e.g. Sector 62 Noida / Laxmi Nagar Delhi" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500">
+            <input type="text" id="patientLocation" required placeholder="e.g. Sector 49 Noida / Laxmi Nagar Delhi" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500">
           </div>
 
           <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold text-sm py-3.5 rounded-xl transition shadow-lg mt-3">
-            Confirm & Send on WhatsApp
+            Book a Home Visit on WhatsApp
           </button>
         </form>
       </div>
@@ -482,7 +584,7 @@
           <span class="text-white text-xl font-bold block mb-2">STEP UP <span class="text-emerald-500">PHYSIO AT HOME</span></span>
           <p class="text-xs text-emerald-400 font-semibold mb-3">Move Better • Live Stronger</p>
           <p class="text-xs leading-relaxed text-slate-400">
-            Dedicated home-visit physiotherapy & neuro rehabilitation led by Dr. Shashi Bhushan Kumar (PT).
+            Dedicated home-visit physiotherapy & rehabilitation care led by Dr. Shashi Bhushan Kumar (PT).
           </p>
         </div>
 
@@ -492,6 +594,7 @@
             <li><a href="#home" class="hover:text-emerald-400">Home</a></li>
             <li><a href="#visiting-card" class="hover:text-emerald-400">Digital Visiting Card</a></li>
             <li><a href="#services" class="hover:text-emerald-400">Our Services</a></li>
+            <li><a href="#process" class="hover:text-emerald-400">Our Process</a></li>
             <li><a href="#appointment" class="hover:text-emerald-400">Book Home Visit</a></li>
           </ul>
         </div>
@@ -529,6 +632,10 @@
     }
     document.getElementById('mobileMenuBtn').addEventListener('click', toggleMenu);
 
+    function setCity(city) {
+      document.getElementById('patientLocation').value = city + " - ";
+    }
+
     function shareVisitingCard() {
       const cardText = `*STEP UP PHYSIO AT HOME*%0A_Move Better Live Stronger_%0A%0A*Dr. Shashi Bhushan Kumar (PT)*%0AB.P.T, M.P.T (NEURO)%0A%0A*Our Services:*%0A• Neck Pain & Back Pain%0A• Knee Pain & Shoulder Pain%0A• Frozen Shoulder%0A• Postoperative Rehabilitation (TKR, THR)%0A• Orthopaedic & Neurological Rehab (Stroke, Parkinsonism)%0A• Ergonomic Training & Geriatric Physiotherapy%0A%0A📞 Call/WhatsApp: 9508481837%0A📍 Location: Noida, Delhi`;
       window.open(`https://wa.me/?text=${cardText}`, '_blank');
@@ -548,13 +655,7 @@
       const date = document.getElementById('patientDate').value;
       const location = document.getElementById('patientLocation').value;
 
-      const formData = {
-        name: name,
-        phone: phone,
-        problem: problem,
-        date: date,
-        location: location
-      };
+      const formData = { name, phone, problem, date, location };
 
       // Google Apps Script Web App URL yahan paste karein
       const GOOGLE_SCRIPT_URL = "";
