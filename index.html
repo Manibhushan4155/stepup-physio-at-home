@@ -599,53 +599,96 @@
     </div>
   </section>
 
-  <!-- APPOINTMENT BOOKING SECTION WITH PREFERRED TIME SLOT -->
+  <!-- APPOINTMENT BOOKING SECTION (MULTI-SELECT PROBLEMS + OTHER + CURRENT LOCATION) -->
   <section id="appointment" class="py-20 bg-white">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="bg-slate-900 text-white rounded-3xl p-8 sm:p-12 shadow-2xl">
         <div class="text-center mb-8">
           <span class="text-xs font-extrabold uppercase tracking-wider text-teal-400 bg-teal-950 px-3 py-1 rounded-full">Your Recovery Starts Here</span>
           <h2 class="text-3xl font-extrabold mt-3">Take the First Step Toward Better Movement</h2>
-          <p class="text-slate-400 text-xs sm:text-sm mt-2">Choose your preferred date & time slot — your inquiry saves automatically and opens WhatsApp.</p>
+          <p class="text-slate-400 text-xs sm:text-sm mt-2">Select one or more conditions, pick your slot, and share your location.</p>
         </div>
 
-        <form onsubmit="handleAppointmentSubmit(event)" class="space-y-4">
+        <form onsubmit="handleAppointmentSubmit(event)" class="space-y-5">
+          <!-- Name & Phone -->
           <div class="grid sm:grid-cols-2 gap-4">
             <div>
-              <label class="block text-xs font-semibold uppercase text-slate-300 mb-1">Patient Name</label>
+              <label class="block text-xs font-semibold uppercase text-slate-300 mb-1.5">Patient Name</label>
               <input type="text" id="patientName" required placeholder="e.g. Aman Sharma" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-teal-500">
             </div>
             <div>
-              <label class="block text-xs font-semibold uppercase text-slate-300 mb-1">Phone Number</label>
+              <label class="block text-xs font-semibold uppercase text-slate-300 mb-1.5">Phone Number</label>
               <input type="tel" id="patientPhone" required placeholder="e.g. 9876543210" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-teal-500">
             </div>
           </div>
 
-          <div class="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-xs font-semibold uppercase text-slate-300 mb-1">Service / Condition</label>
-              <select id="patientProblem" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-teal-500">
-                <option value="Neck Pain / Back Pain">Neck Pain / Back Pain</option>
-                <option value="Knee Pain">Knee Pain</option>
-                <option value="Shoulder Pain / Frozen Shoulder">Shoulder Pain / Frozen Shoulder</option>
-                <option value="Postoperative Rehabilitation (TKR / THR)">Postoperative Rehabilitation (TKR / THR)</option>
-                <option value="Orthopaedic Rehabilitation">Orthopaedic Rehabilitation</option>
-                <option value="Neurological Rehabilitation (Stroke / Parkinsonism)">Neurological Rehabilitation (Stroke / Parkinsonism)</option>
-                <option value="Certified Cupping Therapy">Certified Cupping Therapy</option>
-                <option value="Ergonomic Training">Ergonomic Training</option>
-                <option value="Geriatric Physiotherapy">Geriatric Physiotherapy</option>
-              </select>
+          <!-- MULTI-SELECT SERVICE / CONDITION + OTHER -->
+          <div>
+            <label class="block text-xs font-semibold uppercase text-slate-300 mb-2">
+              Service / Condition <span class="text-teal-400 font-normal normal-case">(Select one or multiple)</span>
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+              <label class="flex items-center gap-2.5 bg-slate-800/90 border border-slate-700 hover:border-teal-500/60 px-3.5 py-2.5 rounded-xl cursor-pointer transition">
+                <input type="checkbox" name="problemOption" value="Neck Pain / Back Pain" class="accent-teal-500 w-4 h-4 rounded">
+                <span>Neck Pain / Back Pain</span>
+              </label>
+
+              <label class="flex items-center gap-2.5 bg-slate-800/90 border border-slate-700 hover:border-teal-500/60 px-3.5 py-2.5 rounded-xl cursor-pointer transition">
+                <input type="checkbox" name="problemOption" value="Knee Pain" class="accent-teal-500 w-4 h-4 rounded">
+                <span>Knee Pain</span>
+              </label>
+
+              <label class="flex items-center gap-2.5 bg-slate-800/90 border border-slate-700 hover:border-teal-500/60 px-3.5 py-2.5 rounded-xl cursor-pointer transition">
+                <input type="checkbox" name="problemOption" value="Shoulder Pain / Frozen Shoulder" class="accent-teal-500 w-4 h-4 rounded">
+                <span>Shoulder Pain / Frozen Shoulder</span>
+              </label>
+
+              <label class="flex items-center gap-2.5 bg-slate-800/90 border border-slate-700 hover:border-teal-500/60 px-3.5 py-2.5 rounded-xl cursor-pointer transition">
+                <input type="checkbox" name="problemOption" value="Postoperative Rehab (TKR / THR)" class="accent-teal-500 w-4 h-4 rounded">
+                <span>Postoperative Rehab (TKR / THR)</span>
+              </label>
+
+              <label class="flex items-center gap-2.5 bg-slate-800/90 border border-slate-700 hover:border-teal-500/60 px-3.5 py-2.5 rounded-xl cursor-pointer transition">
+                <input type="checkbox" name="problemOption" value="Orthopaedic Rehabilitation" class="accent-teal-500 w-4 h-4 rounded">
+                <span>Orthopaedic Rehabilitation</span>
+              </label>
+
+              <label class="flex items-center gap-2.5 bg-slate-800/90 border border-slate-700 hover:border-teal-500/60 px-3.5 py-2.5 rounded-xl cursor-pointer transition">
+                <input type="checkbox" name="problemOption" value="Neurological Rehab (Stroke / Parkinsonism)" class="accent-teal-500 w-4 h-4 rounded">
+                <span>Neurological Rehab (Stroke / Parkinsonism)</span>
+              </label>
+
+              <label class="flex items-center gap-2.5 bg-slate-800/90 border border-slate-700 hover:border-teal-500/60 px-3.5 py-2.5 rounded-xl cursor-pointer transition">
+                <input type="checkbox" name="problemOption" value="Certified Cupping Therapy" class="accent-teal-500 w-4 h-4 rounded">
+                <span>Certified Cupping Therapy</span>
+              </label>
+
+              <label class="flex items-center gap-2.5 bg-slate-800/90 border border-slate-700 hover:border-teal-500/60 px-3.5 py-2.5 rounded-xl cursor-pointer transition">
+                <input type="checkbox" name="problemOption" value="Ergonomic / Geriatric Physiotherapy" class="accent-teal-500 w-4 h-4 rounded">
+                <span>Ergonomic / Geriatric Physiotherapy</span>
+              </label>
+
+              <!-- OTHER OPTION -->
+              <label class="sm:col-span-2 flex items-center gap-2.5 bg-slate-800/90 border border-teal-500/40 hover:border-teal-400 px-3.5 py-2.5 rounded-xl cursor-pointer transition">
+                <input type="checkbox" id="otherProblemCheck" onchange="toggleOtherInput()" class="accent-teal-500 w-4 h-4 rounded">
+                <span class="font-semibold text-teal-300">Other (Specify your condition below)</span>
+              </label>
             </div>
-            <div>
-              <label class="block text-xs font-semibold uppercase text-slate-300 mb-1">Preferred Date</label>
-              <input type="date" id="patientDate" required class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-teal-500">
+
+            <!-- Custom Problem Text Box (Hidden until Other is checked) -->
+            <div id="otherProblemBox" class="hidden mt-3">
+              <input type="text" id="otherProblemText" placeholder="Type your problem or condition here (e.g. Sciatica, Slip Disc, Ankle Sprain)..." class="w-full bg-slate-800 border border-teal-500 rounded-xl px-4 py-3 text-sm text-white focus:outline-none">
             </div>
           </div>
 
-          <!-- NEW: PREFERRED TIME SLOT & AREA -->
+          <!-- Date & Time Slot -->
           <div class="grid sm:grid-cols-2 gap-4">
             <div>
-              <label class="block text-xs font-semibold uppercase text-slate-300 mb-1">Preferred Time Slot</label>
+              <label class="block text-xs font-semibold uppercase text-slate-300 mb-1.5">Preferred Date</label>
+              <input type="date" id="patientDate" required class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-teal-500">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase text-slate-300 mb-1.5">Preferred Time Slot</label>
               <select id="patientSlot" required class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-teal-500">
                 <option value="Morning (09:00 AM - 12:00 PM)">Morning (09:00 AM - 12:00 PM)</option>
                 <option value="Afternoon (12:00 PM - 04:00 PM)">Afternoon (12:00 PM - 04:00 PM)</option>
@@ -653,18 +696,28 @@
                 <option value="Flexible / Any Time Available">Flexible / Any Time Available</option>
               </select>
             </div>
-            <div>
-              <label class="block text-xs font-semibold uppercase text-slate-300 mb-1">Area / Sector (Noida or Delhi)</label>
-              <input type="text" id="patientLocation" required placeholder="e.g. Sector 49 Noida / Laxmi Nagar Delhi" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-teal-500">
-            </div>
           </div>
 
+          <!-- AREA / CURRENT GPS LOCATION -->
           <div>
-            <label class="block text-xs font-semibold uppercase text-slate-300 mb-1">Selected Plan (Optional)</label>
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+              <label class="block text-xs font-semibold uppercase text-slate-300">Address / Area (Noida or Delhi)</label>
+              <button type="button" id="gpsBtn" onclick="detectCurrentLocation()" class="inline-flex items-center gap-1.5 text-xs font-bold text-teal-300 hover:text-teal-200 bg-teal-950/90 border border-teal-500/40 px-3 py-1 rounded-lg transition">
+                <i class="fa-solid fa-location-crosshairs"></i> Use Current Location
+              </button>
+            </div>
+            <input type="text" id="patientLocation" required placeholder="Type your sector/address or click 'Use Current Location'" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-teal-500">
+            <input type="hidden" id="gpsMapLink" value="">
+            <p id="locationStatus" class="text-[11px] text-teal-400 mt-1 hidden"></p>
+          </div>
+
+          <!-- Optional Plan -->
+          <div>
+            <label class="block text-xs font-semibold uppercase text-slate-300 mb-1.5">Selected Plan (Optional)</label>
             <input type="text" id="selectedPlan" placeholder="Standard / Advanced / Premium" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-teal-500">
           </div>
 
-          <button type="submit" class="w-full bg-teal-500 hover:bg-teal-400 text-slate-950 font-extrabold text-sm py-4 rounded-xl transition shadow-lg mt-3">
+          <button type="submit" class="w-full bg-teal-500 hover:bg-teal-400 text-slate-950 font-extrabold text-sm py-4 rounded-xl transition shadow-lg mt-2">
             Book a Home Visit on WhatsApp
           </button>
         </form>
@@ -735,6 +788,68 @@
       document.getElementById('selectedPlan').value = planName;
     }
 
+    function toggleOtherInput() {
+      const check = document.getElementById('otherProblemCheck');
+      const box = document.getElementById('otherProblemBox');
+      const input = document.getElementById('otherProblemText');
+      if (check.checked) {
+        box.classList.remove('hidden');
+        input.required = true;
+        input.focus();
+      } else {
+        box.classList.add('hidden');
+        input.required = false;
+        input.value = '';
+      }
+    }
+
+    function detectCurrentLocation() {
+      const statusEl = document.getElementById('locationStatus');
+      const locInput = document.getElementById('patientLocation');
+      const mapLinkInput = document.getElementById('gpsMapLink');
+      const gpsBtn = document.getElementById('gpsBtn');
+
+      if (!navigator.geolocation) {
+        statusEl.classList.remove('hidden');
+        statusEl.innerText = "Geolocation is not supported by your browser. Please type your address manually.";
+        return;
+      }
+
+      gpsBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Detecting...';
+      statusEl.classList.remove('hidden');
+      statusEl.innerText = "Fetching your current GPS location...";
+
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const lat = position.coords.latitude.toFixed(6);
+          const lng = position.coords.longitude.toFixed(6);
+          const mapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
+          mapLinkInput.value = mapsUrl;
+
+          try {
+            // Reverse geocoding to get readable area/sector name
+            const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
+            const data = await res.json();
+            if (data && data.display_name) {
+              locInput.value = data.display_name;
+            } else {
+              locInput.value = `GPS Location (${lat}, ${lng})`;
+            }
+          } catch (e) {
+            locInput.value = `GPS Location (${lat}, ${lng})`;
+          }
+
+          gpsBtn.innerHTML = '<i class="fa-solid fa-check"></i> Location Attached';
+          statusEl.innerText = "✓ Live GPS & Google Maps pin attached for home visit.";
+        },
+        (error) => {
+          gpsBtn.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i> Use Current Location';
+          statusEl.innerText = "Location permission denied. Please type your sector/address manually.";
+        },
+        { enableHighAccuracy: true, timeout: 10000 }
+      );
+    }
+
     function toggleReviewBox() {
       document.getElementById('reviewFormBox').classList.toggle('hidden');
     }
@@ -774,7 +889,25 @@
 
     async function handleAppointmentSubmit(e) {
       e.preventDefault();
-      
+
+      // Gather selected checkboxes + Other input
+      const selectedProblems = [];
+      document.querySelectorAll('input[name="problemOption"]:checked').forEach((cb) => {
+        selectedProblems.push(cb.value);
+      });
+
+      const otherCheck = document.getElementById('otherProblemCheck');
+      const otherText = document.getElementById('otherProblemText').value.trim();
+      if (otherCheck.checked && otherText) {
+        selectedProblems.push(`Other: ${otherText}`);
+      }
+
+      if (selectedProblems.length === 0) {
+        alert("Please select at least one service/condition or specify under 'Other'.");
+        return;
+      }
+
+      const problemSummary = selectedProblems.join(", ");
       const submitBtn = e.target.querySelector('button[type="submit"]');
       const originalBtnText = submitBtn.innerText;
       submitBtn.innerText = "Saving & Opening WhatsApp...";
@@ -782,13 +915,14 @@
 
       const name = document.getElementById('patientName').value;
       const phone = document.getElementById('patientPhone').value;
-      const problem = document.getElementById('patientProblem').value;
       const date = document.getElementById('patientDate').value;
       const slot = document.getElementById('patientSlot').value;
       const location = document.getElementById('patientLocation').value;
+      const gpsLink = document.getElementById('gpsMapLink').value;
       const plan = document.getElementById('selectedPlan').value || "Not specified";
 
-      const formData = { name, phone, problem, date, slot, location, plan };
+      const fullLocationText = gpsLink ? `${location} (Map: ${gpsLink})` : location;
+      const formData = { name, phone, problem: problemSummary, date, slot, location: fullLocationText, plan };
 
       // Google Apps Script Web App URL yahan paste karein
       const GOOGLE_SCRIPT_URL = "";
@@ -806,13 +940,21 @@
         }
       }
 
-      const whatsappText = `Hello Dr. Shashi Bhushan Kumar, I want to book a home physiotherapy visit from Step Up Physio At Home.%0A%0A👤 Name: ${encodeURIComponent(name)}%0A📞 Phone: ${encodeURIComponent(phone)}%0A🩺 Service: ${encodeURIComponent(problem)}%0A📅 Date: ${encodeURIComponent(date)}%0A⏰ Time Slot: ${encodeURIComponent(slot)}%0A📍 Location: ${encodeURIComponent(location)}%0A💼 Plan: ${encodeURIComponent(plan)}`;
+      let whatsappText = `Hello Dr. Shashi Bhushan Kumar, I want to book a home physiotherapy visit from Step Up Physio At Home.%0A%0A👤 Name: ${encodeURIComponent(name)}%0A📞 Phone: ${encodeURIComponent(phone)}%0A🩺 Condition(s): ${encodeURIComponent(problemSummary)}%0A📅 Date: ${encodeURIComponent(date)}%0A⏰ Time Slot: ${encodeURIComponent(slot)}%0A📍 Address: ${encodeURIComponent(location)}`;
+      
+      if (gpsLink) {
+        whatsappText += `%0A🗺️ Live Map Pin: ${encodeURIComponent(gpsLink)}`;
+      }
+      whatsappText += `%0A💼 Plan: ${encodeURIComponent(plan)}`;
       
       window.open(`https://wa.me/919508481837?text=${whatsappText}`, '_blank');
 
       submitBtn.innerText = originalBtnText;
       submitBtn.disabled = false;
       e.target.reset();
+      document.getElementById('otherProblemBox').classList.add('hidden');
+      document.getElementById('locationStatus').classList.add('hidden');
+      document.getElementById('gpsMapLink').value = '';
     }
   </script>
 </body>
