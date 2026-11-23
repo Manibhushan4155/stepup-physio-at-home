@@ -104,30 +104,7 @@ function focusCityOnMap(city) {
 
 function selectPlan(planName) {
   const planInput = document.getElementById('selectedPlan');
-  if (!planInput) return;
-
-  if (planInput.tagName === 'SELECT') {
-    const cleanName = planName.toLowerCase();
-    const matchedOption = Array.from(planInput.options).find((opt) =>
-      opt.value.toLowerCase().includes(cleanName) || opt.text.toLowerCase().includes(cleanName)
-    );
-
-    if (matchedOption) {
-      planInput.value = matchedOption.value;
-      return;
-    }
-
-    let customOpt = Array.from(planInput.options).find((opt) => opt.value === planName);
-    if (!customOpt) {
-      customOpt = document.createElement('option');
-      customOpt.value = planName;
-      customOpt.text = planName;
-      planInput.appendChild(customOpt);
-    }
-    planInput.value = planName;
-  } else {
-    planInput.value = planName;
-  }
+  if (planInput) planInput.value = planName;
 }
 
 function toggleOtherInput() {
@@ -319,7 +296,7 @@ function initCardSliders() {
       dots[current].className = 'w-4 h-2 rounded-full transition-all bg-white';
     }
 
-    // Har 3 second me auto-change
+    // Har 3 second me auto-change (thoda stagger ke sath taki sab cards ek hi millisecond me na paltein)
     setTimeout(() => {
       setInterval(() => {
         const next = (current + 1) % imgs.length;
