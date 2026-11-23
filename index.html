@@ -10,6 +10,9 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Leaflet Interactive Map CSS & JS (100% Free, No API Key Required) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,6 +21,7 @@
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
     html { scroll-behavior: smooth; }
+    #mapPicker { z-index: 10; }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased">
@@ -98,10 +102,10 @@
 
           <!-- Direct City Connect Buttons -->
           <div class="flex flex-col sm:flex-row gap-3.5 justify-center lg:justify-start pt-2">
-            <a href="#appointment" onclick="setCity('Noida')" class="bg-teal-600 hover:bg-teal-700 text-white text-sm sm:text-base font-bold px-7 py-3.5 rounded-xl shadow-lg shadow-teal-600/25 transition-all text-center flex items-center justify-center gap-2">
+            <a href="#appointment" onclick="focusCityOnMap('Noida')" class="bg-teal-600 hover:bg-teal-700 text-white text-sm sm:text-base font-bold px-7 py-3.5 rounded-xl shadow-lg shadow-teal-600/25 transition-all text-center flex items-center justify-center gap-2">
               <i class="fa-solid fa-location-dot"></i> Connect with Noida Physiotherapist
             </a>
-            <a href="#appointment" onclick="setCity('Delhi')" class="bg-slate-900 hover:bg-slate-800 text-white text-sm sm:text-base font-bold px-7 py-3.5 rounded-xl shadow-lg transition-all text-center flex items-center justify-center gap-2">
+            <a href="#appointment" onclick="focusCityOnMap('Delhi')" class="bg-slate-900 hover:bg-slate-800 text-white text-sm sm:text-base font-bold px-7 py-3.5 rounded-xl shadow-lg transition-all text-center flex items-center justify-center gap-2">
               <i class="fa-solid fa-location-dot text-teal-400"></i> Connect with Delhi Physiotherapist
             </a>
           </div>
@@ -335,7 +339,7 @@
         <div class="relative bg-slate-50 p-7 rounded-2xl border border-slate-100">
           <span class="text-4xl font-black text-teal-600/20 block mb-3">01</span>
           <h3 class="text-lg font-extrabold text-slate-950">Book Your Appointment</h3>
-          <p class="text-slate-500 text-xs sm:text-sm mt-2 leading-relaxed">Tell us about your condition, area in Noida/Delhi, and preferred home visit time slot.</p>
+          <p class="text-slate-500 text-xs sm:text-sm mt-2 leading-relaxed">Tell us about your condition, pin your home location, and select your preferred time slot.</p>
         </div>
 
         <div class="relative bg-slate-50 p-7 rounded-2xl border border-slate-100">
@@ -599,14 +603,14 @@
     </div>
   </section>
 
-  <!-- APPOINTMENT BOOKING SECTION (MULTI-SELECT PROBLEMS + OTHER + CURRENT LOCATION) -->
+  <!-- APPOINTMENT BOOKING SECTION WITH INTERACTIVE MAP PIN & GPS -->
   <section id="appointment" class="py-20 bg-white">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="bg-slate-900 text-white rounded-3xl p-8 sm:p-12 shadow-2xl">
         <div class="text-center mb-8">
           <span class="text-xs font-extrabold uppercase tracking-wider text-teal-400 bg-teal-950 px-3 py-1 rounded-full">Your Recovery Starts Here</span>
           <h2 class="text-3xl font-extrabold mt-3">Take the First Step Toward Better Movement</h2>
-          <p class="text-slate-400 text-xs sm:text-sm mt-2">Select one or more conditions, pick your slot, and share your location.</p>
+          <p class="text-slate-400 text-xs sm:text-sm mt-2">Select conditions, pick your slot, and share or pin your exact home location on the map.</p>
         </div>
 
         <form onsubmit="handleAppointmentSubmit(event)" class="space-y-5">
@@ -675,7 +679,7 @@
               </label>
             </div>
 
-            <!-- Custom Problem Text Box (Hidden until Other is checked) -->
+            <!-- Custom Problem Text Box -->
             <div id="otherProblemBox" class="hidden mt-3">
               <input type="text" id="otherProblemText" placeholder="Type your problem or condition here (e.g. Sciatica, Slip Disc, Ankle Sprain)..." class="w-full bg-slate-800 border border-teal-500 rounded-xl px-4 py-3 text-sm text-white focus:outline-none">
             </div>
@@ -698,17 +702,31 @@
             </div>
           </div>
 
-          <!-- AREA / CURRENT GPS LOCATION -->
-          <div>
-            <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
-              <label class="block text-xs font-semibold uppercase text-slate-300">Address / Area (Noida or Delhi)</label>
-              <button type="button" id="gpsBtn" onclick="detectCurrentLocation()" class="inline-flex items-center gap-1.5 text-xs font-bold text-teal-300 hover:text-teal-200 bg-teal-950/90 border border-teal-500/40 px-3 py-1 rounded-lg transition">
+          <!-- INTERACTIVE MAP PIN + CURRENT GPS LOCATION -->
+          <div class="bg-slate-800/60 border border-slate-700 rounded-2xl p-4 space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <label class="block text-xs font-semibold uppercase text-slate-200">
+                Home Location <span class="text-teal-400 font-normal normal-case">(Use Current GPS or Tap/Drag Pin on Map)</span>
+              </label>
+              <button type="button" id="gpsBtn" onclick="detectCurrentLocation()" class="inline-flex items-center gap-1.5 text-xs font-bold text-slate-950 bg-teal-400 hover:bg-teal-300 px-3.5 py-1.5 rounded-lg shadow transition">
                 <i class="fa-solid fa-location-crosshairs"></i> Use Current Location
               </button>
             </div>
-            <input type="text" id="patientLocation" required placeholder="Type your sector/address or click 'Use Current Location'" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-teal-500">
+
+            <!-- Interactive Map Container -->
+            <div id="mapPicker" class="w-full h-56 rounded-xl border border-slate-600 overflow-hidden"></div>
+            <p class="text-[11px] text-slate-400 flex items-center gap-1.5">
+              <i class="fa-solid fa-hand-pointer text-teal-400"></i> Tap anywhere on the map or drag the blue pin to mark your exact house/society.
+            </p>
+
+            <!-- Address / Landmark Text Field -->
+            <div>
+              <input type="text" id="patientLocation" required placeholder="House/Flat No., Society, Sector (Noida or Delhi)" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-teal-500">
+            </div>
+
+            <!-- Hidden Google Maps URL sent to Dr. Shashi -->
             <input type="hidden" id="gpsMapLink" value="">
-            <p id="locationStatus" class="text-[11px] text-teal-400 mt-1 hidden"></p>
+            <p id="locationStatus" class="text-xs font-semibold text-teal-400 hidden"></p>
           </div>
 
           <!-- Optional Plan -->
@@ -780,8 +798,67 @@
     }
     document.getElementById('mobileMenuBtn').addEventListener('click', toggleMenu);
 
-    function setCity(city) {
+    // Initialize Interactive Map centered on Noida / East Delhi
+    let map, marker;
+    const defaultLat = 28.5823;
+    const defaultLng = 77.3100;
+
+    window.addEventListener('DOMContentLoaded', () => {
+      map = L.map('mapPicker').setView([defaultLat, defaultLng], 12);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap'
+      }).addTo(map);
+
+      marker = L.marker([defaultLat, defaultLng], { draggable: true }).addTo(map);
+
+      // Update pin when user drags marker
+      marker.on('dragend', function () {
+        const pos = marker.getLatLng();
+        updatePinnedLocation(pos.lat, pos.lng, true);
+      });
+
+      // Move pin when user taps anywhere on map
+      map.on('click', function (e) {
+        marker.setLatLng(e.latlng);
+        updatePinnedLocation(e.latlng.lat, e.latlng.lng, true);
+      });
+    });
+
+    async function updatePinnedLocation(lat, lng, fetchAddress = true) {
+      const fixedLat = Number(lat).toFixed(6);
+      const fixedLng = Number(lng).toFixed(6);
+      const googleMapsUrl = `https://www.google.com/maps?q=${fixedLat},${fixedLng}`;
+
+      document.getElementById('gpsMapLink').value = googleMapsUrl;
+      const statusEl = document.getElementById('locationStatus');
+      statusEl.classList.remove('hidden');
+      statusEl.innerHTML = `<i class="fa-solid fa-map-pin mr-1"></i> Map Pin Saved! Navigation link attached for Dr. Shashi.`;
+
+      if (fetchAddress) {
+        try {
+          const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${fixedLat}&lon=${fixedLng}`);
+          const data = await res.json();
+          if (data && data.display_name) {
+            document.getElementById('patientLocation').value = data.display_name;
+          }
+        } catch (err) {
+          console.log("Reverse geocode skipped");
+        }
+      }
+    }
+
+    function focusCityOnMap(city) {
       document.getElementById('patientLocation').value = city + " - ";
+      if (map && marker) {
+        if (city === 'Noida') {
+          map.setView([28.5355, 77.3910], 13);
+          marker.setLatLng([28.5355, 77.3910]);
+        } else {
+          map.setView([28.6139, 77.2090], 12);
+          marker.setLatLng([28.6139, 77.2090]);
+        }
+        setTimeout(() => map.invalidateSize(), 300);
+      }
     }
 
     function selectPlan(planName) {
@@ -805,13 +882,11 @@
 
     function detectCurrentLocation() {
       const statusEl = document.getElementById('locationStatus');
-      const locInput = document.getElementById('patientLocation');
-      const mapLinkInput = document.getElementById('gpsMapLink');
       const gpsBtn = document.getElementById('gpsBtn');
 
       if (!navigator.geolocation) {
         statusEl.classList.remove('hidden');
-        statusEl.innerText = "Geolocation is not supported by your browser. Please type your address manually.";
+        statusEl.innerText = "GPS not supported by browser. Please tap on the map to pin your location.";
         return;
       }
 
@@ -821,30 +896,20 @@
 
       navigator.geolocation.getCurrentPosition(
         async (position) => {
-          const lat = position.coords.latitude.toFixed(6);
-          const lng = position.coords.longitude.toFixed(6);
-          const mapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
-          mapLinkInput.value = mapsUrl;
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
 
-          try {
-            // Reverse geocoding to get readable area/sector name
-            const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
-            const data = await res.json();
-            if (data && data.display_name) {
-              locInput.value = data.display_name;
-            } else {
-              locInput.value = `GPS Location (${lat}, ${lng})`;
-            }
-          } catch (e) {
-            locInput.value = `GPS Location (${lat}, ${lng})`;
+          if (map && marker) {
+            map.setView([lat, lng], 16);
+            marker.setLatLng([lat, lng]);
           }
 
-          gpsBtn.innerHTML = '<i class="fa-solid fa-check"></i> Location Attached';
-          statusEl.innerText = "✓ Live GPS & Google Maps pin attached for home visit.";
+          await updatePinnedLocation(lat, lng, true);
+          gpsBtn.innerHTML = '<i class="fa-solid fa-check"></i> Current Location Pinned';
         },
         (error) => {
           gpsBtn.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i> Use Current Location';
-          statusEl.innerText = "Location permission denied. Please type your sector/address manually.";
+          statusEl.innerText = "Location permission blocked. Please tap/drag the pin directly on the map above.";
         },
         { enableHighAccuracy: true, timeout: 10000 }
       );
@@ -918,10 +983,15 @@
       const date = document.getElementById('patientDate').value;
       const slot = document.getElementById('patientSlot').value;
       const location = document.getElementById('patientLocation').value;
-      const gpsLink = document.getElementById('gpsMapLink').value;
-      const plan = document.getElementById('selectedPlan').value || "Not specified";
+      let gpsLink = document.getElementById('gpsMapLink').value;
 
-      const fullLocationText = gpsLink ? `${location} (Map: ${gpsLink})` : location;
+      // If user typed address without tapping map, create a Google Maps search link from address
+      if (!gpsLink && location) {
+        gpsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`;
+      }
+
+      const plan = document.getElementById('selectedPlan').value || "Not specified";
+      const fullLocationText = `${location} | Map: ${gpsLink}`;
       const formData = { name, phone, problem: problemSummary, date, slot, location: fullLocationText, plan };
 
       // Google Apps Script Web App URL yahan paste karein
@@ -940,12 +1010,7 @@
         }
       }
 
-      let whatsappText = `Hello Dr. Shashi Bhushan Kumar, I want to book a home physiotherapy visit from Step Up Physio At Home.%0A%0A👤 Name: ${encodeURIComponent(name)}%0A📞 Phone: ${encodeURIComponent(phone)}%0A🩺 Condition(s): ${encodeURIComponent(problemSummary)}%0A📅 Date: ${encodeURIComponent(date)}%0A⏰ Time Slot: ${encodeURIComponent(slot)}%0A📍 Address: ${encodeURIComponent(location)}`;
-      
-      if (gpsLink) {
-        whatsappText += `%0A🗺️ Live Map Pin: ${encodeURIComponent(gpsLink)}`;
-      }
-      whatsappText += `%0A💼 Plan: ${encodeURIComponent(plan)}`;
+      const whatsappText = `Hello Dr. Shashi Bhushan Kumar, I want to book a home physiotherapy visit from Step Up Physio At Home.%0A%0A👤 Name: ${encodeURIComponent(name)}%0A📞 Phone: ${encodeURIComponent(phone)}%0A🩺 Condition(s): ${encodeURIComponent(problemSummary)}%0A📅 Date: ${encodeURIComponent(date)}%0A⏰ Time Slot: ${encodeURIComponent(slot)}%0A📍 Address: ${encodeURIComponent(location)}%0A🗺️ Google Maps Navigation Link:%0A${encodeURIComponent(gpsLink)}%0A💼 Plan: ${encodeURIComponent(plan)}`;
       
       window.open(`https://wa.me/919508481837?text=${whatsappText}`, '_blank');
 
