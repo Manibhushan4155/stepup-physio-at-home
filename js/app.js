@@ -22,16 +22,21 @@ async function loadSections() {
     }
   }
 
+  // Sections load hone ke baad Map aur 5-Image Sliders initialize karein
   initInteractiveMap();
+  initCardSliders();
 }
 
+// Page load hote hi sections link karein
 window.addEventListener("DOMContentLoaded", loadSections);
 
+// 2. Mobile Menu Toggle
 function toggleMenu() {
   const menu = document.getElementById('mobileMenu');
   if (menu) menu.classList.toggle('hidden');
 }
 
+// 3. Interactive Map Initialization
 let map, marker;
 const defaultLat = 28.5823;
 const defaultLng = 77.3100;
@@ -151,6 +156,7 @@ function detectCurrentLocation() {
   );
 }
 
+// 4. Reviews Functions
 function toggleReviewBox() {
   document.getElementById('reviewFormBox').classList.toggle('hidden');
 }
@@ -188,6 +194,7 @@ function shareVisitingCard() {
   window.open(`https://wa.me/?text=${cardText}`, '_blank');
 }
 
+// 5. Appointment Submit Handler
 async function handleAppointmentSubmit(e) {
   e.preventDefault();
 
@@ -253,4 +260,47 @@ async function handleAppointmentSubmit(e) {
   document.getElementById('otherProblemBox').classList.add('hidden');
   document.getElementById('locationStatus').classList.add('hidden');
   document.getElementById('gpsMapLink').value = '';
+}
+
+// 6. Auto-Changing 5-Image Slideshow for Speciality Cards
+function initCardSliders() {
+  const sliders = document.querySelectorAll('.auto-slider');
+  sliders.forEach((slider, sliderIdx) => {
+    const imgs = slider.querySelectorAll('.slide-img');
+    const dotsBox = slider.querySelector('.slider-dots');
+    if (imgs.length <= 1) return;
+
+    let current = 0;
+
+    // 5 clickable dots banayein
+    imgs.forEach((_, idx) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = `w-2 h-2 rounded-full transition-all ${idx === 0 ? 'bg-white w-4' : 'bg-white/50'}`;
+      dot.addEventListener('click', () => goToSlide(idx));
+      dotsBox.appendChild(dot);
+    });
+
+    const dots = dotsBox.querySelectorAll('button');
+
+    function goToSlide(index) {
+      imgs[current].classList.remove('opacity-100');
+      imgs[current].classList.add('opacity-0');
+      dots[current].className = 'w-2 h-2 rounded-full transition-all bg-white/50';
+
+      current = index;
+
+      imgs[current].classList.remove('opacity-0');
+      imgs[current].classList.add('opacity-100');
+      dots[current].className = 'w-4 h-2 rounded-full transition-all bg-white';
+    }
+
+    // Har 3 second me auto-change (thoda stagger ke sath taki sab cards ek hi millisecond me na paltein)
+    setTimeout(() => {
+      setInterval(() => {
+        const next = (current + 1) % imgs.length;
+        goToSlide(next);
+      }, 3000);
+    }, sliderIdx * 500);
+  });
 }
