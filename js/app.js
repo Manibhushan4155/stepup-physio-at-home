@@ -150,7 +150,6 @@ function toggleOtherPlanInput() {
   }
 }
 
-// Plan selection sync (supports <select> dropdown + Other text input)
 function selectPlan(planName) {
   const planInput = document.getElementById("selectedPlan");
   if (!planInput) return;
@@ -246,7 +245,7 @@ function detectCurrentLocation() {
   );
 }
 
-// 4. Reviews & Visiting Card Share Functions
+// 4. Reviews & Visiting Card Functions
 function toggleReviewBox() {
   const box = document.getElementById("reviewFormBox");
   if (box) {
@@ -286,8 +285,148 @@ function addPatientReview(e) {
   toggleReviewBox();
 }
 
+function toggleVisitingCardSide() {
+  const front = document.getElementById("cardFrontSide");
+  const back = document.getElementById("cardBackSide");
+  const label = document.getElementById("cardSideLabel");
+  if (!front || !back) return;
+
+  const isBackShowing = !back.classList.contains("hidden");
+  if (isBackShowing) {
+    back.classList.add("hidden");
+    front.classList.remove("hidden");
+    if (label) label.innerText = "Front — Official Card";
+  } else {
+    front.classList.add("hidden");
+    back.classList.remove("hidden");
+    if (label) label.innerText = "Back — Our Services";
+  }
+}
+
+function drawRoundedRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+
+function generateVisitingCardBlob() {
+  return new Promise((resolve) => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1600;
+    canvas.height = 900;
+    const ctx = canvas.getContext("2d");
+
+    ctx.fillStyle = "#f8fafc";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Left Card (Front)
+    const lx = 70, ly = 110, lw = 690, lh = 680;
+    drawRoundedRect(ctx, lx, ly, lw, lh, 36);
+    const grad = ctx.createLinearGradient(lx, ly, lx + lw, ly + lh);
+    grad.addColorStop(0, "#020617");
+    grad.addColorStop(0.55, "#071226");
+    grad.addColorStop(1, "#0b1d3a");
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    drawRoundedRect(ctx, lx + 55, ly + 55, 220, 46, 10);
+    ctx.fillStyle = "rgba(251, 191, 36, 0.14)";
+    ctx.fill();
+    ctx.fillStyle = "#fcd34d";
+    ctx.font = "bold 18px sans-serif";
+    ctx.fillText("OFFICIAL CARD", lx + 82, ly + 85);
+
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "900 58px sans-serif";
+    ctx.fillText("STEP UP", lx + 55, ly + 175);
+
+    ctx.fillStyle = "#fcd34d";
+    ctx.font = "800 22px sans-serif";
+    ctx.fillText("PHYSIO AT HOME", lx + 55, ly + 215);
+
+    ctx.fillStyle = "#bae6fd";
+    ctx.font = "italic 24px sans-serif";
+    ctx.fillText("Move Better Live Stronger", lx + 55, ly + 255);
+
+    ctx.fillStyle = "rgba(255,255,255,0.18)";
+    ctx.fillRect(lx + 55, ly + 295, lw - 110, 2);
+
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "800 30px sans-serif";
+    ctx.fillText("Dr. SHASHI BHUSHAN KUMAR (PT)", lx + 55, ly + 355);
+
+    ctx.fillStyle = "#7dd3fc";
+    ctx.font = "bold 20px sans-serif";
+    ctx.fillText("B.P.T, M.P.T (NEURO)", lx + 55, ly + 392);
+
+    ctx.fillStyle = "#e2e8f0";
+    ctx.font = "600 24px sans-serif";
+    ctx.fillText("📞  9508481837", lx + 55, ly + 475);
+    ctx.fillText("✉️  bhushanshashiraj74@gmail.com", lx + 55, ly + 525);
+    ctx.fillText("📍  Noida, Delhi", lx + 55, ly + 575);
+
+    // Right Card (Back - Our Services)
+    const rx = 840, ry = 110, rw = 690, rh = 680;
+    drawRoundedRect(ctx, rx, ry, rw, rh, 36);
+    ctx.fillStyle = "#ffffff";
+    ctx.fill();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "#e2e8f0";
+    ctx.stroke();
+
+    ctx.fillStyle = "#0b1d3a";
+    ctx.font = "900 30px sans-serif";
+    ctx.fillText("OUR SERVICES", rx + 55, ry + 82);
+
+    drawRoundedRect(ctx, rx + rw - 210, ry + 48, 155, 44, 22);
+    ctx.fillStyle = "#f0fdfa";
+    ctx.fill();
+    ctx.fillStyle = "#0f766e";
+    ctx.font = "bold 20px sans-serif";
+    ctx.fillText("Home Visit", rx + rw - 178, ry + 77);
+
+    ctx.fillStyle = "#fbbf24";
+    ctx.fillRect(rx + 55, ry + 112, rw - 110, 4);
+
+    const services = [
+      "Neck Pain & Back Pain",
+      "Knee Pain & Shoulder Pain",
+      "Frozen Shoulder",
+      "Postoperative Rehab (TKR, THR)",
+      "Orthopaedic Rehabilitation",
+      "Neurological Rehab (Stroke, Parkinsonism)",
+      "Ergonomic Training & Geriatric Care"
+    ];
+
+    services.forEach((srv, i) => {
+      const yPos = ry + 172 + i * 56;
+      ctx.beginPath();
+      ctx.arc(rx + 66, yPos - 7, 7, 0, Math.PI * 2);
+      ctx.fillStyle = "#1d4ed8";
+      ctx.fill();
+
+      ctx.fillStyle = "#1e293b";
+      ctx.font = "600 24px sans-serif";
+      ctx.fillText(srv, rx + 92, yPos);
+    });
+
+    ctx.fillStyle = "#0b1d3a";
+    ctx.font = "bold 22px sans-serif";
+    ctx.fillText("Expert Care", rx + 55, ry + rh - 52);
+
+    ctx.fillStyle = "#0f766e";
+    ctx.fillText("Better Mobility", rx + rw - 215, ry + rh - 52);
+
+    canvas.toBlob((blob) => resolve(blob), "image/png");
+  });
+}
+
 async function shareVisitingCard() {
-  const plainCardText =
+  const cardText =
     "*STEP UP PHYSIO AT HOME*\n" +
     "_Move Better Live Stronger_\n\n" +
     "*Dr. SHASHI BHUSHAN KUMAR (PT)*\n" +
@@ -305,33 +444,24 @@ async function shareVisitingCard() {
     "• Ergonomic Training & Geriatric Care\n\n" +
     "Expert Care | Better Mobility";
 
-  const cardImagePaths = ["images/visiting-card.jpg", "images/visiting-card.png", "visiting-card.jpg"];
-
-  if (navigator.share) {
-    for (const imgPath of cardImagePaths) {
-      try {
-        const response = await fetch(imgPath);
-        if (response.ok) {
-          const blob = await response.blob();
-          const file = new File([blob], "Step-Up-Physio-Visiting-Card.jpg", {
-            type: blob.type || "image/jpeg"
-          });
-          if (navigator.canShare && navigator.canShare({ files: [file] })) {
-            await navigator.share({
-              title: "Step Up Physio At Home — Visiting Card",
-              text: plainCardText,
-              files: [file]
-            });
-            return;
-          }
-        }
-      } catch (err) {
-        // Try next path or WhatsApp fallback
+  const blob = await generateVisitingCardBlob();
+  if (blob && navigator.share) {
+    try {
+      const file = new File([blob], "Step-Up-Physio-Visiting-Card.png", { type: "image/png" });
+      if (!navigator.canShare || navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          title: "Step Up Physio At Home — Visiting Card",
+          text: cardText,
+          files: [file]
+        });
+        return;
       }
+    } catch (err) {
+      // Fallback to WhatsApp share below
     }
   }
 
-  window.open(`https://wa.me/?text=${encodeURIComponent(plainCardText)}`, "_blank");
+  window.open(`https://wa.me/?text=${encodeURIComponent(cardText)}`, "_blank");
 }
 
 // 5. Appointment Submit Handler (Google Sheet Webhook + WhatsApp)
