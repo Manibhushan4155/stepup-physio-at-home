@@ -286,20 +286,47 @@ function addPatientReview(e) {
   toggleReviewBox();
 }
 
-function shareVisitingCard() {
-  const cardText =
-    `*STEP UP PHYSIO AT HOME*%0A_Move Better Live Stronger_%0A%0A` +
-    `*Dr. Shashi Bhushan Kumar (PT)*%0AB.P.T, M.P.T (NEURO)%0A%0A` +
-    `*Our Services:*%0A` +
-    `• Neck Pain & Back Pain%0A` +
-    `• Knee Pain & Shoulder Pain%0A` +
-    `• Frozen Shoulder%0A` +
-    `• Postoperative Rehabilitation (TKR, THR)%0A` +
-    `• Orthopaedic & Neurological Rehab (Stroke, Parkinsonism)%0A` +
-    `• Ergonomic Training & Geriatric Physiotherapy%0A%0A` +
-    `📞 Call/WhatsApp: 9508481837%0A📍 Location: Noida, Delhi`;
+async function shareVisitingCard() {
+  const plainCardText =
+    "STEP UP PHYSIO AT HOME — Move Better Live Stronger\n\n" +
+    "Dr. SHASHI BHUSHAN KUMAR (PT)\n" +
+    "B.P.T, M.P.T (NEURO)\n\n" +
+    "Phone: 9508481837\n" +
+    "Email: bhushanshashiraj74@gmail.com\n" +
+    "Location: Noida, Delhi\n\n" +
+    "OUR SERVICES (Home Visit):\n" +
+    "• Neck Pain & Back Pain\n" +
+    "• Knee Pain & Shoulder Pain\n" +
+    "• Frozen Shoulder\n" +
+    "• Postoperative Rehab (TKR, THR)\n" +
+    "• Orthopaedic Rehabilitation\n" +
+    "• Neurological Rehab (Stroke, Parkinsonism)\n" +
+    "• Ergonomic Training & Geriatric Care\n\n" +
+    "Expert Care | Better Mobility";
 
-  window.open(`https://wa.me/?text=${cardText}`, "_blank");
+  // Agar image file 'images/visiting-card.jpg' maujood ho toh Web Share API se image + details share karega
+  if (navigator.share) {
+    try {
+      const response = await fetch("images/visiting-card.jpg");
+      if (response.ok) {
+        const blob = await response.blob();
+        const file = new File([blob], "Step-Up-Physio-Visiting-Card.jpg", { type: blob.type || "image/jpeg" });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            title: "Step Up Physio At Home — Visiting Card",
+            text: plainCardText,
+            files: [file]
+          });
+          return;
+        }
+      }
+    } catch (err) {
+      // Fallback to WhatsApp share below
+    }
+  }
+
+  const encodedText = encodeURIComponent(plainCardText);
+  window.open(`https://wa.me/?text=${encodedText}`, "_blank");
 }
 
 // 5. Appointment Submit Handler (Google Sheet Webhook + WhatsApp)
