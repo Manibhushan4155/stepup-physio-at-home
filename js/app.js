@@ -38,11 +38,22 @@ async function loadSections() {
 // Page load hote hi sections link karein
 window.addEventListener("DOMContentLoaded", loadSections);
 
-// 2. Mobile Menu Toggle
+// 2. Mobile Menu Toggle & Date Picker Helper
 function toggleMenu() {
   const menu = document.getElementById("mobileMenu");
   if (menu) {
     menu.classList.toggle("hidden");
+  }
+}
+
+function openDateCalendar(inputEl) {
+  if (!inputEl) return;
+  if (typeof inputEl.showPicker === "function") {
+    try {
+      inputEl.showPicker();
+    } catch (err) {
+      // Fallback if browser blocks programmatic showPicker
+    }
   }
 }
 
