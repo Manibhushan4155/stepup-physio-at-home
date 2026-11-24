@@ -1,4 +1,4 @@
-// 1. Saare HTML sections ko index.html me load aur link karne ka function
+// 1. Saare modular HTML sections ko index.html me load karne ka function
 async function loadSections() {
   const sections = [
     { id: "sec-navbar", file: "sections/navbar.html" },
@@ -15,9 +15,14 @@ async function loadSections() {
 
   for (const sec of sections) {
     try {
+      const container = document.getElementById(sec.id);
+      if (!container) continue;
       const response = await fetch(sec.file);
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status} while loading ${sec.file}`);
+      }
       const html = await response.text();
-      document.getElementById(sec.id).innerHTML = html;
+      container.innerHTML = html;
     } catch (err) {
       console.error(`Error loading ${sec.file}:`, err);
     }
@@ -33,35 +38,48 @@ window.addEventListener("DOMContentLoaded", loadSections);
 
 // 2. Mobile Menu Toggle
 function toggleMenu() {
-  const menu = document.getElementById('mobileMenu');
-  if (menu) menu.classList.toggle('hidden');
+  const menu = document.getElementById("mobileMenu");
+  if (menu) {
+    menu.classList.toggle("hidden");
+  }
 }
 
-// 3. Interactive Map Initialization
-let map, marker;
+// 3. Interactive Map Initialization (Noida & Delhi NCR)
+let map;
+let marker;
 const defaultLat = 28.5823;
 const defaultLng = 77.3100;
 
 function initInteractiveMap() {
-  const mapEl = document.getElementById('mapPicker');
-  if (!mapEl) return;
+  const mapEl = document.getElementById("mapPicker");
+  if (!mapEl || typeof L === "undefined") return;
 
-  map = L.map('mapPicker').setView([defaultLat, defaultLng], 12);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap'
+  if (map) {
+    map.remove();
+    map = null;
+    marker = null;
+  }
+
+  map = L.map("mapPicker").setView([defaultLat, defaultLng], 12);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "&copy; OpenStreetMap contributors"
   }).addTo(map);
 
   marker = L.marker([defaultLat, defaultLng], { draggable: true }).addTo(map);
 
-  marker.on('dragend', function () {
+  marker.on("dragend", function () {
     const pos = marker.getLatLng();
     updatePinnedLocation(pos.lat, pos.lng, true);
   });
 
-  map.on('click', function (e) {
+  map.on("click", function (e) {
     marker.setLatLng(e.latlng);
     updatePinnedLocation(e.latlng.lat, e.latlng.lng, true);
   });
+
+  setTimeout(() => {
+    map.invalidateSize();
+  }, 250);
 }
 
 async function updatePinnedLocation(lat, lng, fetchAddress = true) {
@@ -69,29 +87,42 @@ async function updatePinnedLocation(lat, lng, fetchAddress = true) {
   const fixedLng = Number(lng).toFixed(6);
   const googleMapsUrl = `https://www.google.com/maps?q=${fixedLat},${fixedLng}`;
 
-  document.getElementById('gpsMapLink').value = googleMapsUrl;
-  const statusEl = document.getElementById('locationStatus');
-  statusEl.classList.remove('hidden');
-  statusEl.innerHTML = `<i class="fa-solid fa-map-pin mr-1"></i> Map Pin Saved! Navigation link attached for Dr. Shashi.`;
+  const gpsInput = document.getElementById("gpsMapLink");
+  if (gpsInput) {
+    gpsInput.value = googleMapsUrl;
+  }
+
+  const statusEl = document.getElementById("locationStatus");
+  if (statusEl) {
+    statusEl.classList.remove("hidden");
+    statusEl.innerHTML = `<i class="fa-solid fa-map-pin mr-1"></i> Map Pin Saved! Navigation link attached for Dr. Shashi.`;
+  }
 
   if (fetchAddress) {
     try {
-      const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${fixedLat}&lon=${fixedLng}`);
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${fixedLat}&lon=${fixedLng}`
+      );
       const data = await res.json();
-      if (data && data.display_name) {
-        document.getElementById('patientLocation').value = data.display_name;
+      const locInput = document.getElementById("patientLocation");
+      if (data && data.display_name && locInput) {
+        locInput.value = data.display_name;
       }
     } catch (err) {
-      console.log("Reverse geocode skipped");
+      console.log("Reverse geocode skipped:", err);
     }
   }
 }
 
 function focusCityOnMap(city) {
-  const locInput = document.getElementById('patientLocation');
-  if (locInput) locInput.value = city + " - ";
+  const locInput = document.getElementById("patientLocation");
+  if (locInput && (!locInput.value.trim() || locInput.value === "Noida - " || locInput.value === "Delhi - ")) {
+    locInput.value = `${city} - `;
+    locInput.focus();
+  }
+
   if (map && marker) {
-    if (city === 'Noida') {
+    if (city === "Noida") {
       map.setView([28.5355, 77.3910], 13);
       marker.setLatLng([28.5355, 77.3910]);
     } else {
@@ -102,39 +133,89 @@ function focusCityOnMap(city) {
   }
 }
 
+function toggleOtherPlanInput() {
+  const planSelect = document.getElementById("selectedPlan");
+  const otherBox = document.getElementById("otherPlanBox");
+  const otherInput = document.getElementById("otherPlanText");
+  if (!planSelect || !otherBox || !otherInput) return;
+
+  if (planSelect.value === "Other") {
+    otherBox.classList.remove("hidden");
+    otherInput.required = true;
+    otherInput.focus();
+  } else {
+    otherBox.classList.add("hidden");
+    otherInput.required = false;
+    otherInput.value = "";
+  }
+}
+
+// Plan selection sync (supports <select> dropdown + Other text input)
 function selectPlan(planName) {
-  const planInput = document.getElementById('selectedPlan');
-  if (planInput) planInput.value = planName;
+  const planInput = document.getElementById("selectedPlan");
+  if (!planInput) return;
+
+  if (planInput.tagName === "SELECT") {
+    const cleanName = planName.toLowerCase();
+    const matchedOption = Array.from(planInput.options).find(
+      (opt) =>
+        opt.value !== "Other" &&
+        (opt.value.toLowerCase().includes(cleanName) || opt.text.toLowerCase().includes(cleanName))
+    );
+
+    if (matchedOption) {
+      planInput.value = matchedOption.value;
+      toggleOtherPlanInput();
+      return;
+    }
+
+    planInput.value = "Other";
+    toggleOtherPlanInput();
+    const otherInput = document.getElementById("otherPlanText");
+    if (otherInput) {
+      otherInput.value = planName;
+    }
+  } else {
+    planInput.value = planName;
+  }
 }
 
 function toggleOtherInput() {
-  const check = document.getElementById('otherProblemCheck');
-  const box = document.getElementById('otherProblemBox');
-  const input = document.getElementById('otherProblemText');
+  const check = document.getElementById("otherProblemCheck");
+  const box = document.getElementById("otherProblemBox");
+  const input = document.getElementById("otherProblemText");
+  if (!check || !box || !input) return;
+
   if (check.checked) {
-    box.classList.remove('hidden');
+    box.classList.remove("hidden");
     input.required = true;
     input.focus();
   } else {
-    box.classList.add('hidden');
+    box.classList.add("hidden");
     input.required = false;
-    input.value = '';
+    input.value = "";
   }
 }
 
 function detectCurrentLocation() {
-  const statusEl = document.getElementById('locationStatus');
-  const gpsBtn = document.getElementById('gpsBtn');
+  const statusEl = document.getElementById("locationStatus");
+  const gpsBtn = document.getElementById("gpsBtn");
 
   if (!navigator.geolocation) {
-    statusEl.classList.remove('hidden');
-    statusEl.innerText = "GPS not supported by browser. Please tap on the map to pin your location.";
+    if (statusEl) {
+      statusEl.classList.remove("hidden");
+      statusEl.innerText = "GPS not supported by browser. Please tap on the map to pin your location.";
+    }
     return;
   }
 
-  gpsBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Detecting...';
-  statusEl.classList.remove('hidden');
-  statusEl.innerText = "Fetching your current GPS location...";
+  if (gpsBtn) {
+    gpsBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Detecting...';
+  }
+  if (statusEl) {
+    statusEl.classList.remove("hidden");
+    statusEl.innerText = "Fetching your current GPS location...";
+  }
 
   navigator.geolocation.getCurrentPosition(
     async (position) => {
@@ -147,35 +228,46 @@ function detectCurrentLocation() {
       }
 
       await updatePinnedLocation(lat, lng, true);
-      gpsBtn.innerHTML = '<i class="fa-solid fa-check"></i> Current Location Pinned';
+
+      if (gpsBtn) {
+        gpsBtn.innerHTML = '<i class="fa-solid fa-check"></i> Current Location Pinned';
+      }
     },
     () => {
-      gpsBtn.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i> Use Current Location';
-      statusEl.innerText = "Location permission blocked. Please tap/drag the pin directly on the map above.";
+      if (gpsBtn) {
+        gpsBtn.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i> Use Current Location';
+      }
+      if (statusEl) {
+        statusEl.classList.remove("hidden");
+        statusEl.innerText = "Location permission blocked. Please tap/drag the pin directly on the map above.";
+      }
     },
     { enableHighAccuracy: true, timeout: 10000 }
   );
 }
 
-// 4. Reviews Functions
+// 4. Reviews & Visiting Card Share Functions
 function toggleReviewBox() {
-  document.getElementById('reviewFormBox').classList.toggle('hidden');
+  const box = document.getElementById("reviewFormBox");
+  if (box) {
+    box.classList.toggle("hidden");
+  }
 }
 
 function addPatientReview(e) {
   e.preventDefault();
-  const name = document.getElementById('revName').value;
-  const condition = document.getElementById('revCondition').value;
-  const stars = parseInt(document.getElementById('revStars').value);
-  const text = document.getElementById('revText').value;
+  const name = document.getElementById("revName").value.trim();
+  const condition = document.getElementById("revCondition").value.trim();
+  const stars = parseInt(document.getElementById("revStars").value, 10) || 5;
+  const text = document.getElementById("revText").value.trim();
 
-  let starIcons = '';
+  let starIcons = "";
   for (let i = 0; i < stars; i++) {
     starIcons += '<i class="fa-solid fa-star"></i>';
   }
 
-  const card = document.createElement('div');
-  card.className = 'bg-slate-50 p-7 rounded-2xl border border-teal-200 shadow-sm';
+  const card = document.createElement("div");
+  card.className = "bg-slate-50 p-7 rounded-2xl border border-teal-200 shadow-sm";
   card.innerHTML = `
     <div class="text-amber-400 text-sm mb-3">${starIcons}</div>
     <p class="text-slate-600 text-sm italic leading-relaxed">"${text}"</p>
@@ -185,17 +277,32 @@ function addPatientReview(e) {
     </div>
   `;
 
-  document.getElementById('reviewsList').prepend(card);
+  const reviewsList = document.getElementById("reviewsList");
+  if (reviewsList) {
+    reviewsList.prepend(card);
+  }
+
   e.target.reset();
   toggleReviewBox();
 }
 
 function shareVisitingCard() {
-  const cardText = `*STEP UP PHYSIO AT HOME*%0A_Move Better Live Stronger_%0A%0A*Dr. Shashi Bhushan Kumar (PT)*%0AB.P.T, M.P.T (NEURO)%0A%0A*Our Services:*%0A• Neck Pain & Back Pain%0A• Knee Pain & Shoulder Pain%0A• Frozen Shoulder%0A• Postoperative Rehabilitation (TKR, THR)%0A• Orthopaedic & Neurological Rehab (Stroke, Parkinsonism)%0A• Ergonomic Training & Geriatric Physiotherapy%0A%0A📞 Call/WhatsApp: 9508481837%0A📍 Location: Noida, Delhi`;
-  window.open(`https://wa.me/?text=${cardText}`, '_blank');
+  const cardText =
+    `*STEP UP PHYSIO AT HOME*%0A_Move Better Live Stronger_%0A%0A` +
+    `*Dr. Shashi Bhushan Kumar (PT)*%0AB.P.T, M.P.T (NEURO)%0A%0A` +
+    `*Our Services:*%0A` +
+    `• Neck Pain & Back Pain%0A` +
+    `• Knee Pain & Shoulder Pain%0A` +
+    `• Frozen Shoulder%0A` +
+    `• Postoperative Rehabilitation (TKR, THR)%0A` +
+    `• Orthopaedic & Neurological Rehab (Stroke, Parkinsonism)%0A` +
+    `• Ergonomic Training & Geriatric Physiotherapy%0A%0A` +
+    `📞 Call/WhatsApp: 9508481837%0A📍 Location: Noida, Delhi`;
+
+  window.open(`https://wa.me/?text=${cardText}`, "_blank");
 }
 
-// 5. Appointment Submit Handler
+// 5. Appointment Submit Handler (Google Sheet Webhook + WhatsApp)
 async function handleAppointmentSubmit(e) {
   e.preventDefault();
 
@@ -204,9 +311,11 @@ async function handleAppointmentSubmit(e) {
     selectedProblems.push(cb.value);
   });
 
-  const otherCheck = document.getElementById('otherProblemCheck');
-  const otherText = document.getElementById('otherProblemText').value.trim();
-  if (otherCheck.checked && otherText) {
+  const otherCheck = document.getElementById("otherProblemCheck");
+  const otherTextEl = document.getElementById("otherProblemText");
+  const otherText = otherTextEl ? otherTextEl.value.trim() : "";
+
+  if (otherCheck && otherCheck.checked && otherText) {
     selectedProblems.push(`Other: ${otherText}`);
   }
 
@@ -217,24 +326,46 @@ async function handleAppointmentSubmit(e) {
 
   const problemSummary = selectedProblems.join(", ");
   const submitBtn = e.target.querySelector('button[type="submit"]');
-  const originalBtnText = submitBtn.innerText;
-  submitBtn.innerText = "Saving & Opening WhatsApp...";
-  submitBtn.disabled = true;
+  const originalBtnText = submitBtn ? submitBtn.innerText : "Book a Home Visit on WhatsApp";
 
-  const name = document.getElementById('patientName').value;
-  const phone = document.getElementById('patientPhone').value;
-  const date = document.getElementById('patientDate').value;
-  const slot = document.getElementById('patientSlot').value;
-  const location = document.getElementById('patientLocation').value;
-  let gpsLink = document.getElementById('gpsMapLink').value;
+  if (submitBtn) {
+    submitBtn.innerText = "Saving & Opening WhatsApp...";
+    submitBtn.disabled = true;
+  }
+
+  const name = document.getElementById("patientName").value.trim();
+  const phone = document.getElementById("patientPhone").value.trim();
+  const date = document.getElementById("patientDate").value;
+  const slot = document.getElementById("patientSlot").value;
+  const location = document.getElementById("patientLocation").value.trim();
+  const gpsInput = document.getElementById("gpsMapLink");
+  let gpsLink = gpsInput ? gpsInput.value : "";
 
   if (!gpsLink && location) {
     gpsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`;
   }
 
-  const plan = document.getElementById('selectedPlan').value || "Not specified";
+  const planEl = document.getElementById("selectedPlan");
+  const otherPlanEl = document.getElementById("otherPlanText");
+  const otherPlanVal = otherPlanEl ? otherPlanEl.value.trim() : "";
+
+  let plan = "Not specified";
+  if (planEl && planEl.value) {
+    plan = planEl.value === "Other"
+      ? (otherPlanVal ? `Other: ${otherPlanVal}` : "Other")
+      : planEl.value;
+  }
+
   const fullLocationText = `${location} | Map: ${gpsLink}`;
-  const formData = { name, phone, problem: problemSummary, date, slot, location: fullLocationText, plan };
+  const formData = {
+    name,
+    phone,
+    problem: problemSummary,
+    date,
+    slot,
+    location: fullLocationText,
+    plan
+  };
 
   const GOOGLE_SCRIPT_URL = "";
 
@@ -251,52 +382,75 @@ async function handleAppointmentSubmit(e) {
     }
   }
 
-  const whatsappText = `Hello Dr. Shashi Bhushan Kumar, I want to book a home physiotherapy visit from Step Up Physio At Home.%0A%0A👤 Name: ${encodeURIComponent(name)}%0A📞 Phone: ${encodeURIComponent(phone)}%0A🩺 Condition(s): ${encodeURIComponent(problemSummary)}%0A📅 Date: ${encodeURIComponent(date)}%0A⏰ Time Slot: ${encodeURIComponent(slot)}%0A📍 Address: ${encodeURIComponent(location)}%0A🗺️ Google Maps Navigation Link:%0A${encodeURIComponent(gpsLink)}%0A💼 Plan: ${encodeURIComponent(plan)}`;
-  
-  window.open(`https://wa.me/919508481837?text=${whatsappText}`, '_blank');
+  const whatsappText =
+    `Hello Dr. Shashi Bhushan Kumar, I want to book a home physiotherapy visit from Step Up Physio At Home.%0A%0A` +
+    `👤 Name: ${encodeURIComponent(name)}%0A` +
+    `📞 Phone: ${encodeURIComponent(phone)}%0A` +
+    `🩺 Condition(s): ${encodeURIComponent(problemSummary)}%0A` +
+    `📅 Date: ${encodeURIComponent(date)}%0A` +
+    `⏰ Time Slot: ${encodeURIComponent(slot)}%0A` +
+    `📍 Address: ${encodeURIComponent(location)}%0A` +
+    `🗺️ Google Maps Navigation Link:%0A${encodeURIComponent(gpsLink)}%0A` +
+    `💼 Plan: ${encodeURIComponent(plan)}`;
 
-  submitBtn.innerText = originalBtnText;
-  submitBtn.disabled = false;
+  window.open(`https://wa.me/919508481837?text=${whatsappText}`, "_blank");
+
+  if (submitBtn) {
+    submitBtn.innerText = originalBtnText;
+    submitBtn.disabled = false;
+  }
+
   e.target.reset();
-  document.getElementById('otherProblemBox').classList.add('hidden');
-  document.getElementById('locationStatus').classList.add('hidden');
-  document.getElementById('gpsMapLink').value = '';
+
+  const otherBox = document.getElementById("otherProblemBox");
+  const otherPlanBox = document.getElementById("otherPlanBox");
+  const statusEl = document.getElementById("locationStatus");
+  if (otherBox) otherBox.classList.add("hidden");
+  if (otherPlanBox) otherPlanBox.classList.add("hidden");
+  if (statusEl) statusEl.classList.add("hidden");
+  if (gpsInput) gpsInput.value = "";
 }
 
 // 6. Auto-Changing 5-Image Slideshow for Speciality Cards
 function initCardSliders() {
-  const sliders = document.querySelectorAll('.auto-slider');
+  const sliders = document.querySelectorAll(".auto-slider");
   sliders.forEach((slider, sliderIdx) => {
-    const imgs = slider.querySelectorAll('.slide-img');
-    const dotsBox = slider.querySelector('.slider-dots');
-    if (imgs.length <= 1) return;
+    const imgs = slider.querySelectorAll(".slide-img");
+    const dotsBox = slider.querySelector(".slider-dots");
+    if (imgs.length <= 1 || !dotsBox) return;
 
     let current = 0;
+    dotsBox.innerHTML = "";
 
-    // 5 clickable dots banayein
     imgs.forEach((_, idx) => {
-      const dot = document.createElement('button');
-      dot.type = 'button';
-      dot.className = `w-2 h-2 rounded-full transition-all ${idx === 0 ? 'bg-white w-4' : 'bg-white/50'}`;
-      dot.addEventListener('click', () => goToSlide(idx));
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.setAttribute("aria-label", `Slide ${idx + 1}`);
+      dot.className = `h-2 rounded-full transition-all cursor-pointer ${
+        idx === 0 ? "w-4 bg-white" : "w-2 bg-white/50"
+      }`;
+      dot.addEventListener("click", () => goToSlide(idx));
       dotsBox.appendChild(dot);
     });
 
-    const dots = dotsBox.querySelectorAll('button');
+    const dots = dotsBox.querySelectorAll("button");
 
     function goToSlide(index) {
-      imgs[current].classList.remove('opacity-100');
-      imgs[current].classList.add('opacity-0');
-      dots[current].className = 'w-2 h-2 rounded-full transition-all bg-white/50';
+      imgs[current].classList.remove("opacity-100");
+      imgs[current].classList.add("opacity-0");
+      if (dots[current]) {
+        dots[current].className = "w-2 h-2 rounded-full transition-all bg-white/50 cursor-pointer";
+      }
 
       current = index;
 
-      imgs[current].classList.remove('opacity-0');
-      imgs[current].classList.add('opacity-100');
-      dots[current].className = 'w-4 h-2 rounded-full transition-all bg-white';
+      imgs[current].classList.remove("opacity-0");
+      imgs[current].classList.add("opacity-100");
+      if (dots[current]) {
+        dots[current].className = "w-4 h-2 rounded-full transition-all bg-white cursor-pointer";
+      }
     }
 
-    // Har 3 second me auto-change (thoda stagger ke sath taki sab cards ek hi millisecond me na paltein)
     setTimeout(() => {
       setInterval(() => {
         const next = (current + 1) % imgs.length;
