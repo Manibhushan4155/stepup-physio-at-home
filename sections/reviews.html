@@ -1,191 +1,96 @@
-<section id="reviews" class="py-20 bg-slate-50">
+<section id="testimonials" class="py-20 bg-white border-t border-slate-100">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-    <!-- Section Header -->
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
-      <div>
-        <span class="text-xs font-extrabold uppercase tracking-wider text-teal-700 bg-teal-100/80 px-3 py-1 rounded-full">Patient Stories & Digital Card</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">Trusted Recovery Across Homes</h2>
-        <p class="text-slate-600 mt-2 text-sm sm:text-base max-w-2xl">
-          Real home-rehabilitation feedback and the official digital visiting card of <strong class="text-slate-900">Dr. Shashi Bhushan Kumar (PT)</strong>.
-        </p>
-      </div>
-
-      <div class="flex flex-wrap items-center gap-3">
-        <button type="button" onclick="toggleReviewBox()" class="px-4 py-2.5 rounded-xl bg-white border border-slate-300 hover:border-teal-600 text-slate-800 font-bold text-xs sm:text-sm transition cursor-pointer">
-          <i class="fa-solid fa-pen-to-square mr-1.5 text-teal-600"></i> Write a Review
-        </button>
-        <button type="button" onclick="shareVisitingCard()" class="px-5 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-extrabold text-xs sm:text-sm transition shadow-md cursor-pointer inline-flex items-center gap-2">
-          <i class="fa-solid fa-share-nodes"></i> Share Digital Card
-        </button>
+    <div class="bg-gradient-to-r from-teal-700 to-emerald-700 rounded-3xl p-8 sm:p-10 text-white mb-20 shadow-lg">
+      <div class="grid md:grid-cols-12 gap-8 items-center">
+        <div class="md:col-span-6 space-y-2">
+          <span class="text-teal-200 text-xs font-extrabold uppercase tracking-wider">Service Areas</span>
+          <h3 class="text-2xl sm:text-3xl font-extrabold">Home Physiotherapy Near You</h3>
+          <p class="text-teal-50 text-xs sm:text-sm">Get personalized physiotherapy at home across Noida, Delhi, and surrounding residential sectors.</p>
+        </div>
+        <div class="md:col-span-6 grid sm:grid-cols-2 gap-4">
+          <div class="bg-white/10 backdrop-blur border border-white/20 rounded-2xl p-5">
+            <h4 class="font-extrabold text-lg flex items-center gap-2"><i class="fa-solid fa-location-dot text-amber-300"></i> Noida</h4>
+            <p class="text-xs text-teal-50 mt-1">Doorstep physiotherapy across all Noida sectors & societies.</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur border border-white/20 rounded-2xl p-5">
+            <h4 class="font-extrabold text-lg flex items-center gap-2"><i class="fa-solid fa-location-dot text-amber-300"></i> Delhi</h4>
+            <p class="text-xs text-teal-50 mt-1">Professional home visit care across East, South & Central Delhi.</p>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Add Review Box (Hidden by default) -->
-    <div id="reviewFormBox" class="hidden mb-12 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm">
-      <h3 class="text-lg font-extrabold text-slate-900 mb-4">Share Your Recovery Experience</h3>
-      <form onsubmit="addPatientReview(event)" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <input id="revName" type="text" required placeholder="Your Name" class="px-4 py-3 rounded-xl bg-slate-50 border border-slate-300 text-sm text-slate-900 focus:outline-none focus:border-teal-500">
-        <input id="revCondition" type="text" required placeholder="Condition (e.g., Back Pain, Stroke Rehab)" class="px-4 py-3 rounded-xl bg-slate-50 border border-slate-300 text-sm text-slate-900 focus:outline-none focus:border-teal-500">
-        <select id="revStars" class="px-4 py-3 rounded-xl bg-slate-50 border border-slate-300 text-sm text-slate-900 focus:outline-none focus:border-teal-500">
-          <option value="5">5 Stars — Excellent</option>
-          <option value="4">4 Stars — Very Good</option>
-          <option value="3">3 Stars — Good</option>
-        </select>
-        <div class="sm:col-span-2 lg:col-span-1 flex items-center gap-2">
-          <button type="submit" class="w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-sm transition cursor-pointer">
-            Submit Review
-          </button>
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+      <div>
+        <span class="text-xs font-extrabold uppercase tracking-wider text-teal-600 bg-teal-50 px-3 py-1 rounded-full">Patient Reviews</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">Stories of Healing and Hope</h2>
+        <p class="text-slate-500 text-xs sm:text-sm mt-1">4.9/5 Average Patient Rating • Verified Home Visit Feedback</p>
+      </div>
+      <button onclick="toggleReviewBox()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-bold px-5 py-3 rounded-xl transition self-start md:self-auto">
+        <i class="fa-solid fa-pen-to-square mr-1.5 text-teal-400"></i> Write a Review
+      </button>
+    </div>
+
+    <div id="reviewFormBox" class="hidden mb-10 bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8 max-w-2xl">
+      <h3 class="text-lg font-extrabold text-slate-950 mb-4">Share Your Recovery Experience</h3>
+      <form onsubmit="addPatientReview(event)" class="space-y-4">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <input type="text" id="revName" required placeholder="Your Name (e.g. Amit Kumar)" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-teal-600">
+          <input type="text" id="revCondition" required placeholder="Condition & City (e.g. Back Pain • Noida)" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-teal-600">
         </div>
-        <textarea id="revText" rows="3" required placeholder="Write how home physiotherapy helped you..." class="sm:col-span-2 lg:col-span-4 px-4 py-3 rounded-xl bg-slate-50 border border-slate-300 text-sm text-slate-900 focus:outline-none focus:border-teal-500"></textarea>
+        <div>
+          <select id="revStars" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-teal-600">
+            <option value="5">⭐⭐⭐⭐⭐ (5/5 Excellent)</option>
+            <option value="4">⭐⭐⭐⭐ (4/5 Very Good)</option>
+            <option value="3">⭐⭐⭐ (3/5 Good)</option>
+          </select>
+        </div>
+        <textarea id="revText" rows="3" required placeholder="Write your feedback about Dr. Shashi Bhushan Kumar's treatment..." class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-teal-600"></textarea>
+        <button type="submit" class="bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-xl transition">
+          Submit Review
+        </button>
       </form>
     </div>
 
-    <!-- Patient Reviews Grid -->
-    <div id="reviewsList" class="grid md:grid-cols-3 gap-6 mb-16">
-      <div class="bg-white p-7 rounded-2xl border border-slate-200 shadow-sm">
+    <div id="reviewsList" class="grid md:grid-cols-3 gap-8">
+      <div class="bg-slate-50 p-7 rounded-2xl border border-slate-100">
         <div class="text-amber-400 text-sm mb-3">
           <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
         </div>
         <p class="text-slate-600 text-sm italic leading-relaxed">
-          "Home sessions with Dr. Shashi Bhushan Kumar made a huge difference in my father's post-stroke balance and walking confidence without hospital travel stress."
+          "Dr. Shashi Bhushan Kumar provided home physiotherapy for my father's post-stroke recovery in Noida. His neuro expertise and patience helped my father regain walking confidence."
         </p>
-        <div class="mt-6 pt-4 border-t border-slate-100">
+        <div class="mt-6 pt-4 border-t border-slate-200">
           <h4 class="font-extrabold text-slate-950 text-sm">Rajesh Verma</h4>
-          <p class="text-xs text-teal-600 font-semibold">Neurological Rehabilitation — Noida</p>
+          <p class="text-xs text-teal-600 font-semibold">Neurological Rehab (Stroke) • Noida</p>
         </div>
       </div>
 
-      <div class="bg-white p-7 rounded-2xl border border-slate-200 shadow-sm">
+      <div class="bg-slate-50 p-7 rounded-2xl border border-slate-100">
         <div class="text-amber-400 text-sm mb-3">
           <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
         </div>
         <p class="text-slate-600 text-sm italic leading-relaxed">
-          "After knee replacement surgery, getting step-by-step mobility and strengthening exercises at home helped me bend and walk comfortably much sooner."
+          "Managing severe frozen shoulder and neck pain became stress-free with treatment at home. His cupping therapy and personalized exercises gave relief within a week."
         </p>
-        <div class="mt-6 pt-4 border-t border-slate-100">
-          <h4 class="font-extrabold text-slate-950 text-sm">Sunita Sharma</h4>
-          <p class="text-xs text-teal-600 font-semibold">Post-Surgical Rehab (TKR) — Delhi</p>
+        <div class="mt-6 pt-4 border-t border-slate-200">
+          <h4 class="font-extrabold text-slate-950 text-sm">Neha Singh</h4>
+          <p class="text-xs text-teal-600 font-semibold">Frozen Shoulder & Neck Pain • Delhi</p>
         </div>
       </div>
 
-      <div class="bg-white p-7 rounded-2xl border border-slate-200 shadow-sm">
+      <div class="bg-slate-50 p-7 rounded-2xl border border-slate-100">
         <div class="text-amber-400 text-sm mb-3">
           <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
         </div>
         <p class="text-slate-600 text-sm italic leading-relaxed">
-          "Long sitting hours gave me severe neck and lower back stiffness. Manual therapy, cupping, and ergonomic guidance relieved my pain steadily."
+          "After TKR knee replacement surgery, I needed daily rehabilitation. Step Up Physio provided 1-on-1 attention and steady support that made recovery smooth."
         </p>
-        <div class="mt-6 pt-4 border-t border-slate-100">
-          <h4 class="font-extrabold text-slate-950 text-sm">Ankit Mishra</h4>
-          <p class="text-xs text-teal-600 font-semibold">Orthopaedic & Ergonomic Care — Noida</p>
+        <div class="mt-6 pt-4 border-t border-slate-200">
+          <h4 class="font-extrabold text-slate-950 text-sm">Suresh Agarwal</h4>
+          <p class="text-xs text-teal-600 font-semibold">Post-Surgical Rehab (TKR) • Noida</p>
         </div>
       </div>
     </div>
-
-    <!-- Official Digital Visiting Card Showcase (Front & Back Matching Uploaded Card) -->
-    <div id="digitalCardContainer" class="bg-white border border-slate-200 rounded-3xl p-6 sm:p-10 shadow-sm">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-8">
-        <div>
-          <span class="text-[11px] font-extrabold uppercase tracking-wider text-teal-700 bg-teal-50 px-3 py-1 rounded-full">Official Visiting Card</span>
-          <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-2">Step Up Physio At Home — Digital Card</h3>
-        </div>
-        <button type="button" onclick="shareVisitingCard()" class="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm transition cursor-pointer inline-flex items-center gap-2 self-start sm:self-auto">
-          <i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i> Share This Visiting Card
-        </button>
-      </div>
-
-      <div class="grid lg:grid-cols-2 gap-8 items-stretch">
-
-        <!-- FRONT CARD (Dark Navy Theme) -->
-        <div class="rounded-3xl bg-gradient-to-br from-slate-950 via-[#071226] to-[#0b1d3a] text-white p-7 sm:p-8 shadow-xl border border-slate-800 flex flex-col justify-between min-h-[340px]">
-          <div>
-            <span class="inline-block text-[11px] font-bold uppercase tracking-widest text-amber-300 bg-amber-400/10 border border-amber-300/25 px-3 py-1 rounded-md">
-              OFFICIAL CARD
-            </span>
-
-            <div class="mt-5">
-              <h4 class="text-3xl sm:text-4xl font-black tracking-tight text-white leading-none">STEP UP</h4>
-              <p class="text-xs sm:text-sm font-extrabold uppercase tracking-[0.2em] text-amber-300 mt-1.5">PHYSIO AT HOME</p>
-              <p class="text-sm italic text-sky-200 mt-1.5">Move Better Live Stronger</p>
-            </div>
-
-            <div class="h-px bg-white/15 my-5"></div>
-
-            <div>
-              <p class="text-base sm:text-lg font-extrabold tracking-wide text-white">Dr. SHASHI BHUSHAN KUMAR (PT)</p>
-              <p class="text-xs font-bold uppercase tracking-wider text-sky-300 mt-0.5">B.P.T, M.P.T (NEURO)</p>
-            </div>
-          </div>
-
-          <div class="space-y-2 text-xs sm:text-sm text-slate-200 pt-5">
-            <p class="flex items-center gap-2.5">
-              <i class="fa-solid fa-phone text-amber-300 w-4 text-center"></i>
-              <a href="tel:9508481837" class="hover:underline font-semibold">9508481837</a>
-            </p>
-            <p class="flex items-center gap-2.5">
-              <i class="fa-solid fa-envelope text-amber-300 w-4 text-center"></i>
-              <a href="mailto:bhushanshashiraj74@gmail.com" class="hover:underline break-all">bhushanshashiraj74@gmail.com</a>
-            </p>
-            <p class="flex items-center gap-2.5">
-              <i class="fa-solid fa-location-dot text-rose-400 w-4 text-center"></i>
-              <span>Noida, Delhi</span>
-            </p>
-          </div>
-        </div>
-
-        <!-- BACK CARD (Clean White Services Theme) -->
-        <div class="rounded-3xl bg-white text-slate-900 p-7 sm:p-8 shadow-lg border border-slate-200 flex flex-col justify-between min-h-[340px]">
-          <div>
-            <div class="flex items-center justify-between gap-3">
-              <h4 class="text-base sm:text-lg font-black uppercase tracking-wide text-[#0b1d3a]">OUR SERVICES</h4>
-              <span class="text-xs font-bold text-teal-700 bg-teal-50 border border-teal-200/80 px-3 py-1 rounded-full">
-                Home Visit
-              </span>
-            </div>
-
-            <div class="h-0.5 bg-amber-400 w-full mt-3 mb-5"></div>
-
-            <ul class="space-y-2.5 text-sm text-slate-700 font-medium">
-              <li class="flex items-center gap-2.5">
-                <span class="w-2 h-2 rounded-full bg-blue-700 shrink-0"></span>
-                <span>Neck Pain &amp; Back Pain</span>
-              </li>
-              <li class="flex items-center gap-2.5">
-                <span class="w-2 h-2 rounded-full bg-blue-700 shrink-0"></span>
-                <span>Knee Pain &amp; Shoulder Pain</span>
-              </li>
-              <li class="flex items-center gap-2.5">
-                <span class="w-2 h-2 rounded-full bg-blue-700 shrink-0"></span>
-                <span>Frozen Shoulder</span>
-              </li>
-              <li class="flex items-center gap-2.5">
-                <span class="w-2 h-2 rounded-full bg-blue-700 shrink-0"></span>
-                <span>Postoperative Rehab (TKR, THR)</span>
-              </li>
-              <li class="flex items-center gap-2.5">
-                <span class="w-2 h-2 rounded-full bg-blue-700 shrink-0"></span>
-                <span>Orthopaedic Rehabilitation</span>
-              </li>
-              <li class="flex items-center gap-2.5">
-                <span class="w-2 h-2 rounded-full bg-blue-700 shrink-0"></span>
-                <span>Neurological Rehab (Stroke, Parkinsonism)</span>
-              </li>
-              <li class="flex items-center gap-2.5">
-                <span class="w-2 h-2 rounded-full bg-blue-700 shrink-0"></span>
-                <span>Ergonomic Training &amp; Geriatric Care</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="flex items-center justify-between pt-5 mt-6 border-t border-slate-100 text-xs sm:text-sm font-bold text-[#0b1d3a]">
-            <span>Expert Care</span>
-            <span class="text-teal-700">Better Mobility</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
   </div>
 </section>
