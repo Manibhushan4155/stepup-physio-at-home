@@ -1,3 +1,5 @@
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxIgDZNxZWXWnVBfjo1dIxo9PYKzQu1OixscL_uLc9e7LlpLeIP2p2PMbzW4a4WmlIQ7g/exec";
+
 // 1. Saare modular HTML sections ko index.html me load karne ka function
 async function loadSections() {
   const sections = [
@@ -323,7 +325,6 @@ function generateVisitingCardBlob() {
     ctx.fillStyle = "#f8fafc";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Left Card (Front)
     const lx = 70, ly = 110, lw = 690, lh = 680;
     drawRoundedRect(ctx, lx, ly, lw, lh, 36);
     const grad = ctx.createLinearGradient(lx, ly, lx + lw, ly + lh);
@@ -369,7 +370,6 @@ function generateVisitingCardBlob() {
     ctx.fillText("✉️  bhushanshashiraj74@gmail.com", lx + 55, ly + 525);
     ctx.fillText("📍  Noida, Delhi", lx + 55, ly + 575);
 
-    // Right Card (Back - Our Services)
     const rx = 840, ry = 110, rw = 690, rh = 680;
     drawRoundedRect(ctx, rx, ry, rw, rh, 36);
     ctx.fillStyle = "#ffffff";
@@ -464,7 +464,7 @@ async function shareVisitingCard() {
   window.open(`https://wa.me/?text=${encodeURIComponent(cardText)}`, "_blank");
 }
 
-// 5. Appointment Submit Handler (Google Sheet Webhook + WhatsApp)
+// 5. Appointment Submit Handler (Google Sheet Date-Sorted Save + WhatsApp)
 async function handleAppointmentSubmit(e) {
   e.preventDefault();
 
@@ -528,8 +528,6 @@ async function handleAppointmentSubmit(e) {
     location: fullLocationText,
     plan
   };
-
-  const GOOGLE_SCRIPT_URL = "";
 
   if (GOOGLE_SCRIPT_URL) {
     try {
